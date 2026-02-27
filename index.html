@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Dossiê da Traição | Diagnóstico Forense Astral</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        /* ===== VARIABLES DE LUJO ===== */
+        :root {
+            --cosmic-dark: #0a0710;
+            --deep-purple: #1a1120;
+            --royal-lavender: #bba5d1;
+            --sacred-gold: #e8d5b5;
+            --neon-lila: #b388ff;
+            --neon-glow: 0 0 15px #b388ff, 0 0 30px rgba(179, 136, 255, 0.5);
+            --mystic-glow: rgba(187, 165, 209, 0.3);
+            --shadow-heavy: 0 30px 60px -15px rgba(0,0,0,0.8);
+            --shadow-soft: 0 20px 40px -12px rgba(0,0,0,0.5);
+            --gradient-cosmic: linear-gradient(145deg, #0e0b15, #1a1425);
+            --glass-bg: rgba(10, 7, 16, 0.6);
+            --glass-border: rgba(232, 213, 181, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--cosmic-dark);
+            color: #f0e9e1;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, #2d1f3a 0%, var(--cosmic-dark) 70%);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" opacity="0.25"><circle cx="30" cy="40" r="1.5" fill="%23e8d5b5"/><circle cx="170" cy="70" r="2" fill="%23bba5d1"/><circle cx="120" cy="160" r="1.8" fill="%23e8d5b5"/><circle cx="50" cy="180" r="1.2" fill="%23bba5d1"/><circle cx="180" cy="140" r="2.2" fill="%23e8d5b5"/><circle cx="90" cy="30" r="1" fill="%23bba5d1"/><circle cx="140" cy="90" r="1.7" fill="%23e8d5b5"/></svg>');
+            background-size: cover;
+            opacity: 0.3;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px 25px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== COMPONENTES REUTILIZABLES ===== */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s;
+        }
+
+        .glass-card:hover {
+            border-color: var(--sacred-gold);
+            transform: translateY(-5px);
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(232, 213, 181, 0.25);
+            border-radius: 60px;
+            padding: 8px 22px;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--sacred-gold);
+            font-weight: 600;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #ffffff, var(--sacred-gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+            color: var(--sacred-gold);
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sacred-gold), transparent);
+            border-radius: 3px;
+        }
+
+        /* ===== BOTÓN NEON LILA ===== */
+        .btn-neon {
+            display: inline-block;
+            background: linear-gradient(135deg, #4a2f6e, #2a1f4a);
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 18px 45px;
+            border-radius: 80px;
+            border: 2px solid var(--neon-lila);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            box-shadow: 0 0 15px var(--neon-lila), 0 0 30px rgba(179, 136, 255, 0.3);
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-neon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px var(--neon-lila), 0 0 50px rgba(179, 136, 255, 0.6);
+            border-color: white;
+        }
+
+        .btn-neon i {
+            margin-right: 10px;
+        }
+
+        .btn-secundario {
+            background: transparent;
+            border: 1px solid var(--sacred-gold);
+            color: var(--sacred-gold);
+            padding: 12px 30px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-secundario:hover {
+            background: var(--sacred-gold);
+            color: var(--cosmic-dark);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero-section {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .hero-image-container {
+            position: relative;
+            border-radius: 60px;
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy);
+            aspect-ratio: 16/9;
+            max-height: 600px;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.8s;
+        }
+
+        .hero-section:hover .hero-image {
+            transform: scale(1.02);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, rgba(10,7,16,0.85), rgba(26,17,32,0.7));
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 900px;
+            text-align: center;
+            z-index: 2;
+            padding: 20px;
+        }
+
+        .hero-content .badge {
+            margin-bottom: 20px;
+            background: rgba(0,0,0,0.5);
+            border-color: var(--sacred-gold);
+        }
+
+        .hero-subhead {
+            font-size: 1.3rem;
+            color: #d9c9b0;
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 300;
+            text-shadow: 0 2px 10px black;
+        }
+
+        /* ===== SELLOS DE AUTORIDAD ===== */
+        .authority-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 50px 0;
+        }
+
+        .authority-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 60px;
+            padding: 10px 25px;
+            border: 1px solid rgba(232, 213, 181, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .authority-item i {
+            color: var(--sacred-gold);
+            font-size: 1.4rem;
+        }
+
+        .authority-item span {
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+            color: #e0d0b5;
+        }
+
+        /* ===== DIAGNÓSTICO FORENSE ===== */
+        .forensic-section {
+            margin: 80px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .forensic-content h2 {
+            margin-top: 0;
+        }
+
+        .forensic-content p {
+            font-size: 1.2rem;
+            color: #cfc5d4;
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+
+        .forensic-image-container {
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid rgba(232, 213, 181, 0.3);
+        }
+
+        .forensic-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s;
+        }
+
+        .forensic-image-container:hover .forensic-image {
+            transform: scale(1.03);
+        }
+
+        .highlight-list {
+            list-style: none;
+            margin: 25px 0;
+        }
+
+        .highlight-list li {
+            margin: 15px 0;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .highlight-list li i {
+            color: var(--sacred-gold);
+            font-size: 1.3rem;
+            width: 30px;
+        }
+
+        /* ===== TARJETAS DE DISCIPLINAS ===== */
+        .disciplines-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 25px;
+            margin: 70px 0;
+        }
+
+        .discipline-card {
+            background: rgba(20, 15, 25, 0.7);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(232, 213, 181, 0.15);
+            border-radius: 35px;
+            padding: 25px 15px;
+            text-align: center;
+            transition: all 0.4s;
+            cursor: default;
+        }
+
+        .discipline-card:hover {
+            border-color: var(--sacred-gold);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px -10px rgba(232, 213, 181, 0.2);
+        }
+
+        .card-image-small {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 18px;
+            border-radius: 35px;
+            overflow: hidden;
+            border: 2px solid var(--sacred-gold);
+            transition: 0.3s;
+        }
+
+        .discipline-card:hover .card-image-small {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--sacred-gold);
+        }
+
+        .card-image-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .discipline-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: #fff0e0;
+        }
+
+        .discipline-card p {
+            font-size: 0.85rem;
+            color: #b5a5b0;
+        }
+
+        /* ===== SECCIÓN "QUEBRAR A MALDIÇÃO" ===== */
+        .curse-section {
+            margin: 90px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            direction: rtl;
+        }
+
+        .curse-section > * {
+            direction: ltr;
+        }
+
+        .curse-image-container {
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: var(--shadow-heavy);
+            border: 1px solid rgba(232, 213, 181, 0.3);
+        }
+
+        .curse-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .curse-content h2 {
+            color: var(--sacred-gold);
+        }
+
+        .curse-content .badge {
+            margin-bottom: 20px;
+        }
+
+        /* ===== SEÇÃO DE PACOTES (3 NÍVEIS) ===== */
+        .pacotes-section {
+            margin: 80px 0;
+            text-align: center;
+        }
+
+        .pacotes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .pacote-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            padding: 40px 20px;
+            transition: all 0.4s;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .pacote-card:hover {
+            border-color: var(--sacred-gold);
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .pacote-card.selecionado {
+            border: 3px solid var(--neon-lila);
+            box-shadow: 0 0 30px var(--neon-lila);
+        }
+
+        .pacote-card.destaque {
+            border: 2px solid var(--sacred-gold);
+            transform: scale(1.02);
+        }
+
+        .selo-destaque {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--sacred-gold);
+            color: #0a0710;
+            padding: 8px 30px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .pacote-icon {
+            font-size: 3rem;
+            color: var(--sacred-gold);
+            margin-bottom: 20px;
+        }
+
+        .pacote-nome {
+            font-size: 2rem;
+            color: #fff0e0;
+            margin-bottom: 10px;
+        }
+
+        .pacote-preco {
+            background: linear-gradient(135deg, #2a1f2a, #1a1425);
+            padding: 20px;
+            border-radius: 30px;
+            margin: 20px 0;
+        }
+
+        .pacote-preco span {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--sacred-gold);
+        }
+
+        .pacote-lista {
+            list-style: none;
+            text-align: left;
+            padding: 0 20px;
+            margin: 20px 0;
+        }
+
+        .pacote-lista li {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .pacote-lista i {
+            color: var(--sacred-gold);
+            font-size: 1.2rem;
+            width: 24px;
+        }
+
+        .btn-pacote {
+            width: 100%;
+            margin-top: 20px;
+            background: transparent;
+            border: 2px solid var(--sacred-gold);
+            color: var(--sacred-gold);
+            font-weight: 700;
+            padding: 15px;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-pacote:hover {
+            background: var(--sacred-gold);
+            color: #0a0710;
+        }
+
+        .btn-pacote.destaque-btn {
+            background: var(--sacred-gold);
+            color: #0a0710;
+        }
+
+        /* ===== COMUNIDADE (aparece apenas se plano Master/Black for selecionado) ===== */
+        .comunidad-section {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 2px solid var(--sacred-gold);
+            border-radius: 60px;
+            padding: 50px 40px;
+            margin: 80px 0;
+            text-align: center;
+            box-shadow: var(--shadow-heavy);
+            display: none; /* Oculto por padrão */
+        }
+
+        .comunidad-section.visible {
+            display: block;
+        }
+
+        .comunidad-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        .comunidad-feature {
+            flex: 1 1 250px;
+            padding: 20px;
+        }
+
+        .comunidad-feature i {
+            font-size: 3rem;
+            color: var(--neon-lila);
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px var(--neon-lila));
+        }
+
+        .comunidad-feature h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #fff0e0;
+        }
+
+        .comunidad-feature p {
+            color: #b5a5b0;
+        }
+
+        .profesionales-strip {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0 20px;
+        }
+
+        .profesional-item {
+            background: rgba(255,255,255,0.02);
+            border-radius: 60px;
+            padding: 8px 20px;
+            border: 1px solid rgba(232,213,181,0.2);
+        }
+
+        .profesional-item i {
+            color: var(--neon-lila);
+            margin-right: 8px;
+        }
+
+        /* ===== TESTIMONIALES ===== */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 70px 0;
+        }
+
+        .testimonial-card {
+            background: rgba(20, 15, 25, 0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 30px;
+            border: 1px solid rgba(232, 213, 181, 0.15);
+            transition: 0.3s;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--sacred-gold);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-foto {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 2px solid var(--sacred-gold);
+        }
+
+        .testimonial-foto img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .testimonial-nome h4 {
+            font-size: 1.2rem;
+            color: #fff0e0;
+        }
+
+        .testimonial-nome p {
+            font-size: 0.8rem;
+            color: var(--sacred-gold);
+        }
+
+        .testimonial-texto {
+            font-style: italic;
+            color: #cfc5d4;
+            line-height: 1.7;
+        }
+
+        /* ===== QUESTIONÁRIO ===== */
+        .diagnostico-section {
+            margin: 60px 0;
+            background: rgba(0,0,0,0.3);
+            border-radius: 60px;
+            padding: 40px 20px;
+            display: none; /* Oculto por padrão */
+        }
+
+        .progresso {
+            width: 100%;
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .barra-progresso {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--royal-lavender), var(--sacred-gold));
+            border-radius: 20px;
+            transition: width 0.4s;
+        }
+
+        .pergunta-container {
+            background: rgba(255,255,255,0.03);
+            border-radius: 40px;
+            padding: 35px;
+            margin-bottom: 25px;
+        }
+
+        .pergunta {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: #fff0e0;
+        }
+
+        .opcoes {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opcao {
+            background: rgba(255,255,255,0.05);
+            padding: 15px 25px;
+            border-radius: 60px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.2s;
+            font-weight: 500;
+        }
+
+        .opcao:hover {
+            background: rgba(232,213,181,0.1);
+            border-color: var(--sacred-gold);
+        }
+
+        .opcao.selecionada {
+            border-color: var(--sacred-gold);
+            background: rgba(232,213,181,0.05);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 18px 22px;
+            border-radius: 60px;
+            background: rgba(255,255,255,0.05);
+            border: 2px solid rgba(232,213,181,0.3);
+            color: white;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        input:focus, textarea:focus {
+            border-color: var(--sacred-gold);
+            outline: none;
+            background: rgba(255,255,255,0.08);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .navegacao {
+            display: flex;
+            gap: 15px;
+            justify-content: space-between;
+        }
+
+        /* ===== PANTALLA DE PROCESAMIENTO ===== */
+        .procesando-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(10,7,16,0.95);
+            backdrop-filter: blur(15px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .procesando-content {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+        }
+
+        .procesando-spinner {
+            width: 80px;
+            height: 80px;
+            border: 5px solid rgba(179,136,255,0.2);
+            border-top-color: var(--neon-lila);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 30px;
+        }
+
+        .procesando-texto {
+            font-size: 1.5rem;
+            color: var(--neon-lila);
+            margin-bottom: 15px;
+        }
+
+        .procesando-detalhes {
+            color: #b5a5b0;
+            font-size: 1rem;
+        }
+
+        .procesando-detalhes span {
+            display: block;
+            margin: 10px 0;
+            opacity: 0.8;
+        }
+
+        /* ===== TELA DE RESULTADO ===== */
+        .tela-resultado {
+            margin: 60px 0;
+            display: none;
+        }
+
+        .resultado-container {
+            background: rgba(0,0,0,0.5);
+            border-radius: 50px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .texto-difuminado {
+            filter: blur(5px);
+            user-select: none;
+            opacity: 0.7;
+        }
+
+        .overlay-difuminado {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, rgba(255,255,255,0.1), rgba(255,255,255,0.3));
+            border-radius: 40px;
+            pointer-events: none;
+        }
+
+        .percentual-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--sacred-gold) 0deg 331deg, rgba(255,255,255,0.1) 331deg 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        .percentual-inner {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--cosmic-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--sacred-gold);
+        }
+
+        /* ===== CTA PRINCIPAL ===== */
+        .cta-principal {
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            margin-top: 80px;
+            padding: 40px 0 20px;
+            border-top: 1px solid rgba(232,213,181,0.2);
+            text-align: center;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .footer-social a {
+            color: var(--sacred-gold);
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+
+        .footer-social a:hover {
+            transform: translateY(-3px);
+            text-shadow: 0 0 15px var(--sacred-gold);
+        }
+
+        /* ===== LOADER (para envio final) ===== */
+        #loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            background: rgba(10,7,16,0.95);
+            backdrop-filter: blur(10px);
+            color: var(--neon-lila);
+            padding: 25px 45px;
+            border-radius: 80px;
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            gap: 20px;
+            border: 2px solid var(--neon-lila);
+            box-shadow: 0 0 40px var(--neon-lila);
+        }
+
+        .spinner {
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(179,136,255,0.3);
+            border-top-color: var(--neon-lila);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            h1 { font-size: 2.8rem; }
+            .forensic-section, .curse-section {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .curse-section { direction: ltr; }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .container { padding: 15px; }
+            .authority-strip { gap: 10px; }
+            .authority-item { padding: 8px 15px; }
+            .btn-neon { font-size: 1rem; padding: 15px 30px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ===== HERO ===== -->
+        <section class="hero-section">
+            <div class="hero-image-container">
+                <!-- IMAGEM PRINCIPAL: substitua pelo caminho da sua imagem -->
+                <img src="assets/imagenes/hero.jpg" alt="Dossiê da Traição" class="hero-image" loading="eager">
+                <div class="hero-overlay"></div>
+                <div class="hero-content">
+                    <div class="badge">
+                        <i class="fas fa-crown"></i> +7.500 DIAGNÓSTICOS REALIZADOS
+                    </div>
+                    <h1>DOSSIÊ DA TRAIÇÃO<br><span style="font-size:0.7em; display:block;">DIAGNÓSTICO FORENSE</span></h1>
+                    <p class="hero-subhead">A única análise que cruza astrologia, numerologia, quiromancia, carta natal e psicologia profunda para revelar padrões ocultos da traição.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== SELLOS DE AUTORIDAD ===== -->
+        <div class="authority-strip">
+            <div class="authority-item"><i class="fas fa-brain"></i> <span>Psicologia Analítica</span></div>
+            <div class="authority-item"><i class="fas fa-star"></i> <span>Astrologia Humanista</span></div>
+            <div class="authority-item"><i class="fas fa-hand-peace"></i> <span>Quiromancia</span></div>
+            <div class="authority-item"><i class="fas fa-calculator"></i> <span>Numerologia</span></div>
+            <div class="authority-item"><i class="fas fa-chart-line"></i> <span>Carta Natal</span></div>
+            <div class="authority-item"><i class="fas fa-venus-mars"></i> <span>Compatibilidade Astral</span></div>
+        </div>
+
+        <!-- ===== DIAGNÓSTICO FORENSE ===== -->
+        <section class="forensic-section">
+            <div class="forensic-content">
+                <h2>Seu Destino Foi Manipulado?</h2>
+                <p>Nossa análise forense astral investiga se padrões inconscientes, trânsitos astrológicos e repetições kármicas estão sabotando sua história. Não é um simples relatório: é uma perícia emocional.</p>
+                <ul class="highlight-list">
+                    <li><i class="fas fa-search"></i> <strong>Perícia astrológica:</strong> Mapas cruzados em 47 variáveis</li>
+                    <li><i class="fas fa-hand-peace"></i> <strong>Quiromancia relacional:</strong> Análise das linhas da mão (com foto)</li>
+                    <li><i class="fas fa-brain"></i> <strong>Perfil DSM-5:</strong> Padrões psicológicos do traidor</li>
+                    <li><i class="fas fa-gem"></i> <strong>Numerologia kármica:</strong> Ciclos de repetição</li>
+                </ul>
+            </div>
+            <div class="forensic-image-container">
+                <!-- IMAGEM DO DIAGNÓSTICO -->
+                <img src="assets/imagenes/dossie.jpg" alt="Dossiê Fênix - Destino Manipulado" class="forensic-image" loading="lazy">
+            </div>
+        </section>
+
+        <!-- ===== TARJETAS DE DISCIPLINAS ===== -->
+        <div class="disciplines-grid">
+            <div class="discipline-card">
+                <div class="card-image-small">
+                    <img src="assets/imagenes/psicologia.jpg" alt="Psicologia">
+                </div>
+                <h3>Psicologia</h3>
+                <p>Feridas de infância, padrões relacionais e perfil DSM-5</p>
+            </div>
+            <div class="discipline-card">
+                <div class="card-image-small">
+                    <img src="assets/imagenes/astrologia.jpg" alt="Astrologia">
+                </div>
+                <h3>Astrologia</h3>
+                <p>Mapa natal, trânsitos, nodo lunar e sinastria</p>
+            </div>
+            <div class="discipline-card">
+                <div class="card-image-small">
+                    <img src="assets/imagenes/quiromancia.jpg" alt="Quiromancia">
+                </div>
+                <h3>Quiromancia</h3>
+                <p>Linhas da mão (análise por foto)</p>
+            </div>
+            <div class="discipline-card">
+                <div class="card-image-small">
+                    <img src="assets/imagenes/numerologia.jpg" alt="Numerologia">
+                </div>
+                <h3>Numerologia</h3>
+                <p>Números do nascimento e ciclos kármicos</p>
+            </div>
+            <div class="discipline-card">
+                <div class="card-image-small">
+                    <img src="assets/imagenes/carta-natal.jpg" alt="Carta Natal">
+                </div>
+                <h3>Carta Natal</h3>
+                <p>Mapa completo com casas e ascendente</p>
+            </div>
+            <div class="discipline-card">
+                <div class="card-image-small">
+                    <img src="assets/imagenes/compatibilidade.jpg" alt="Compatibilidade">
+                </div>
+                <h3>Compatibilidade</h3>
+                <p>Cruzamento dos mapas astrais</p>
+            </div>
+        </div>
+
+        <!-- ===== QUEBRAR A MALDIÇÃO ===== -->
+        <section class="curse-section">
+            <div class="curse-content">
+                <div class="badge">⚡ EDIÇÃO LIMITADA</div>
+                <h2>Como Quebrar a Maldição</h2>
+                <p>Identificamos 7 padrões de repetição que mantêm mulheres presas em relações destrutivas. Nosso método não só diagnostica: oferece um ritual simbólico e um plano de ação para romper o ciclo.</p>
+                <ul class="highlight-list">
+                    <li><i class="fas fa-unlock"></i> Padrão do abandono</li>
+                    <li><i class="fas fa-unlock"></i> Ciclo do perdão infinito</li>
+                    <li><i class="fas fa-unlock"></i> Maldição da comparação</li>
+                    <li><i class="fas fa-unlock"></i> Armadilha da esperança</li>
+                </ul>
+            </div>
+            <div class="curse-image-container">
+                <!-- IMAGEM "QUEBRAR A MALDIÇÃO" -->
+                <img src="assets/imagenes/quebrar-maldicao.jpg" alt="Quebrar a Maldição" class="curse-image" loading="lazy">
+            </div>
+        </section>
+
+        <!-- ===== SEÇÃO DE PACOTES (3 NÍVEIS) ===== -->
+        <section class="pacotes-section">
+            <h2 style="color:var(--sacred-gold);">Escolha o nível da sua análise</h2>
+            <p style="color:#b5a5b0; max-width:700px; margin:0 auto;">Quanto mais profunda a investigação, mais clara a decisão. Todos os níveis incluem 7 dias de garantia.</p>
+
+            <div class="pacotes-grid">
+                <!-- NÍVEL 1: Fênix -->
+                <div class="pacote-card" id="plan1" onclick="selecionarPlano(1)">
+                    <i class="fas fa-feather-alt pacote-icon"></i>
+                    <h3 class="pacote-nome">Dossiê Fênix</h3>
+                    <p style="color:#b5a5b0;">O autoconhecimento essencial</p>
+                    <div class="pacote-preco">
+                        <span>R$67</span>
+                    </div>
+                    <ul class="pacote-lista">
+                        <li><i class="fas fa-check-circle"></i> Análise Psicológica</li>
+                        <li><i class="fas fa-check-circle"></i> Numerologia básica</li>
+                        <li><i class="fas fa-check-circle"></i> Carta Natal simplificada</li>
+                        <li><i class="fas fa-check-circle"></i> Matriz de decisão</li>
+                        <li><i class="fas fa-check-circle"></i> Áudio personalizado</li>
+                    </ul>
+                    <button class="btn-pacote" onclick="event.stopPropagation(); selecionarPlano(1)">ESCOLHER</button>
+                </div>
+
+                <!-- NÍVEL 2: Master (Destaque) -->
+                <div class="pacote-card destaque" id="plan2" onclick="selecionarPlano(2)">
+                    <div class="selo-destaque">MAIS VENDIDO</div>
+                    <i class="fas fa-crown pacote-icon"></i>
+                    <h3 class="pacote-nome">Dossiê Master</h3>
+                    <p style="color:#b5a5b0;">Análise estratégica + comunidade</p>
+                    <div class="pacote-preco">
+                        <span>R$97</span>
+                    </div>
+                    <ul class="pacote-lista">
+                        <li><i class="fas fa-check-circle"></i> Tudo do nível anterior</li>
+                        <li><i class="fas fa-check-circle"></i> Análise de Conversas (prints)</li>
+                        <li><i class="fas fa-check-circle"></i> Compatibilidade Astral</li>
+                        <li><i class="fas fa-check-circle"></i> Plano de ação 30 dias</li>
+                        <li><i class="fas fa-check-circle"></i> <strong>COMUNIDADE VIP</strong></li>
+                    </ul>
+                    <button class="btn-pacote destaque-btn" onclick="event.stopPropagation(); selecionarPlano(2)">ESCOLHER MASTER</button>
+                </div>
+
+                <!-- NÍVEL 3: Black -->
+                <div class="pacote-card" id="plan3" onclick="selecionarPlano(3)">
+                    <i class="fas fa-gem pacote-icon"></i>
+                    <h3 class="pacote-nome">Dossiê Black</h3>
+                    <p style="color:#b5a5b0;">A perícia forense completa</p>
+                    <div class="pacote-preco">
+                        <span>R$147</span>
+                    </div>
+                    <ul class="pacote-lista">
+                        <li><i class="fas fa-check-circle"></i> Tudo do nível anterior</li>
+                        <li><i class="fas fa-check-circle"></i> Quiromancia Digital (foto)</li>
+                        <li><i class="fas fa-check-circle"></i> Mapa astral completo</li>
+                        <li><i class="fas fa-check-circle"></i> Numerologia kármica</li>
+                        <li><i class="fas fa-check-circle"></i> Sessão de dúvidas (áudio)</li>
+                        <li><i class="fas fa-check-circle"></i> Certificado exclusivo</li>
+                    </ul>
+                    <button class="btn-pacote" onclick="event.stopPropagation(); selecionarPlano(3)">ESCOLHER BLACK</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== COMUNIDADE (aparece apenas se plano Master/Black for selecionado) ===== -->
+        <section class="comunidad-section" id="comunidadeSection">
+            <i class="fas fa-hand-holding-heart" style="font-size:4rem; color:var(--neon-lila); margin-bottom:20px; filter: drop-shadow(0 0 15px var(--neon-lila));"></i>
+            <h2 style="color:var(--sacred-gold); display:block; text-align:center;">ACOMPANHAMENTO VITALÍCIO</h2>
+            <p style="max-width:700px; margin:0 auto; color:#cfc5d4; font-size:1.2rem;">Ao desbloquear seu dossiê Master ou Black, você é convidada para nossa comunidade secreta no WhatsApp, moderada por psicólogos e coaches certificados.</p>
+            
+            <div class="comunidad-grid">
+                <div class="comunidad-feature">
+                    <i class="fas fa-user-md"></i>
+                    <h4>Moderação Profissional</h4>
+                    <p>Psicólogos, terapeutas e coaches da Rede Fênix acompanham as discussões diariamente.</p>
+                </div>
+                <div class="comunidad-feature">
+                    <i class="fas fa-heart"></i>
+                    <h4>Apoio 24/7</h4>
+                    <p>Grupo de acolhimento com mulheres que passam pela mesma situação.</p>
+                </div>
+                <div class="comunidad-feature">
+                    <i class="fas fa-calendar-check"></i>
+                    <h4>Conteúdos Exclusivos</h4>
+                    <p> Lives semanais com especialistas e exercícios práticos.</p>
+                </div>
+            </div>
+
+            <div class="profesionales-strip">
+                <span class="profesional-item"><i class="fas fa-check-circle"></i> Psicólogas CRP</span>
+                <span class="profesional-item"><i class="fas fa-check-circle"></i> Coaches SBC</span>
+                <span class="profesional-item"><i class="fas fa-check-circle"></i> Terapeutas Holísticos</span>
+                <span class="profesional-item"><i class="fas fa-check-circle"></i> Astrólogos certificados</span>
+            </div>
+
+            <p style="font-size:1.5rem; margin:20px 0;"><strong>+ R$27</strong> acesso vitalício (incluído nos níveis Master e Black)</p>
+        </section>
+
+        <!-- ===== TESTIMONIALES ===== -->
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-foto">
+                        <img src="assets/imagenes/testimonial-ana.jpg" alt="Ana">
+                    </div>
+                    <div class="testimonial-nome">
+                        <h4>Ana C.</h4>
+                        <p>34 anos • 3 meses atrás</p>
+                    </div>
+                </div>
+                <p class="testimonial-texto">"O dossiê apontou exatamente o medo que eu tinha de repetir a história da minha mãe. A comunidade me deu forças pra sair. Hoje sou grata."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-foto">
+                        <img src="assets/imagenes/testimonial-mariana.jpg" alt="Mariana">
+                    </div>
+                    <div class="testimonial-nome">
+                        <h4>Mariana R.</h4>
+                        <p>28 anos • 2 meses atrás</p>
+                    </div>
+                </div>
+                <p class="testimonial-texto">"A compatibilidade astral mostrou que meu ex e eu tínhamos um aspecto de Marte que gerava competição. Fez todo sentido. A comunidade me acolheu."</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <div class="testimonial-foto">
+                        <img src="assets/imagenes/testimonial-livia.jpg" alt="Lívia">
+                    </div>
+                    <div class="testimonial-nome">
+                        <h4>Lívia M.</h4>
+                        <p>41 anos • 1 mês atrás</p>
+                    </div>
+                </div>
+                <p class="testimonial-texto">"Usei o plano de ação pra reconstruir com limites. Hoje estamos melhor que antes. A psicóloga do grupo foi essencial."</p>
+            </div>
+        </div>
+
+        <!-- ===== CTA PRINCIPAL ===== -->
+        <div class="cta-principal">
+            <button class="btn-neon" id="btnIniciarAnalise" style="font-size:1.5rem; padding:25px 70px;">
+                <i class="fas fa-search"></i> INICIAR ANÁLISE FORENSE
+            </button>
+            <p style="margin-top:15px; color:#b5a5b0;"><i class="fas fa-lock"></i> Dados sigilosos • Garantia de 7 dias • Acesso à comunidade (Master/Black)</p>
+        </div>
+
+        <!-- ===== ÁREA DO DIAGNÓSTICO (questionário) ===== -->
+        <section class="diagnostico-section" id="diagnosticoSection">
+            <div style="max-width:720px; margin:0 auto;">
+                <div class="progresso">
+                    <div class="barra-progresso" id="barraProgresso"></div>
+                    <div style="text-align:right; margin-top:5px; color:var(--sacred-gold);" id="passoTexto">Pergunta 1 de 14</div>
+                </div>
+                <div class="pergunta-container" id="perguntaContainer"></div>
+                <div class="navegacao">
+                    <button class="btn-secundario" id="btnAnterior" style="visibility:hidden;">Anterior</button>
+                    <button class="btn-neon" id="btnProximo">Próxima</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== PANTALLA DE PROCESAMIENTO ===== -->
+        <div class="procesando-screen" id="procesandoScreen">
+            <div class="procesando-content">
+                <div class="procesando-spinner"></div>
+                <div class="procesando-texto">PROCESSANDO SEU RELATO</div>
+                <div class="procesando-detalhes">
+                    <span id="processMsg1">✓ Mapeando posições planetárias do dia da ruptura...</span>
+                    <span id="processMsg2">✓ Analisando linhas da vida na quiromancia...</span>
+                    <span id="processMsg3">✓ Detectando padrões de manipulação no seu relato...</span>
+                    <span id="processMsg4">✓ Cruzando 47 variáveis astrológicas...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== TELA DE RESULTADO ===== -->
+        <section class="tela-resultado" id="telaResultado">
+            <div class="resultado-container">
+                <h2>Seu diagnóstico preliminar, <span id="nomeCliente"></span></h2>
+                
+                <div class="percentual-circle">
+                    <div class="percentual-inner" id="percentualValue">92%</div>
+                </div>
+                <p style="font-size:1.5rem; margin:20px 0;">Perfil detectado: <strong style="color:var(--sacred-gold);" id="perfilDetectado">NARCISISTA</strong></p>
+
+                <div style="position:relative; background:rgba(255,255,255,0.03); border-radius:40px; padding:30px; margin:30px 0;">
+                    <div class="texto-difuminado">
+                        <p>... a traição pode ter sido um sintoma de problemas mais profundos na relação. O perfil do seu parceiro sugere padrões de comportamento que indicam [DADOS DIFUMINADOS]... Para ver a análise completa e o plano de ação, desbloqueie o dossiê completo.</p>
+                    </div>
+                    <div class="overlay-difuminado"></div>
+                </div>
+
+                <div style="background:rgba(232,213,181,0.1); border-radius:40px; padding:30px;">
+                    <h3>Desbloqueie seu dossiê completo</h3>
+                    <p>Escolha abaixo o nível ideal para você:</p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin: 20px 0;">
+                        <button class="btn-pacote" style="width:auto;" onclick="comprar(1)">Fênix R$67</button>
+                        <button class="btn-pacote destaque-btn" style="width:auto;" onclick="comprar(2)">Master R$97</button>
+                        <button class="btn-pacote" style="width:auto;" onclick="comprar(3)">Black R$147</button>
+                    </div>
+                    <p style="margin-top:15px; color:#b5a5b0;"><i class="fas fa-lock"></i> Pagamento 100% seguro via Hotmart</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== FOOTER ===== -->
+        <footer class="footer">
+            <div class="footer-social">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-telegram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p style="color:#b5a5b0;">© 2025 Protocolo Fênix — Todos os direitos reservados.</p>
+            <p style="color:#8a7a8a; font-size:0.8rem;">CNPJ 12.345.678/0001-90</p>
+        </footer>
+    </div>
+
+    <!-- Loader (para envio final) -->
+    <div id="loader">
+        <div class="spinner"></div>
+        <span>Preparando seu diagnóstico...</span>
+    </div>
+
+    <script>
+        // ===== VARIÁVEIS GLOBAIS =====
+        let planoSelecionado = 2; // Master como padrão (destaque)
+
+        // Links de Hotmart (substitua pelos seus)
+        const links = {
+            1: 'https://pay.hotmart.com/C104421790V?off=oferta1', // Fênix
+            2: 'https://pay.hotmart.com/C104421790V?off=oferta2', // Master
+            3: 'https://pay.hotmart.com/C104421790V?off=oferta3'  // Black
+        };
+
+        // Elementos
+        const cards = {
+            1: document.getElementById('plan1'),
+            2: document.getElementById('plan2'),
+            3: document.getElementById('plan3')
+        };
+        const comunidadeSection = document.getElementById('comunidadeSection');
+        const btnIniciar = document.getElementById('btnIniciarAnalise');
+        const diagnosticoSection = document.getElementById('diagnosticoSection');
+        const telaResultado = document.getElementById('telaResultado');
+        const procesandoScreen = document.getElementById('procesandoScreen');
+        const loader = document.getElementById('loader');
+        const pacotesSection = document.querySelector('.pacotes-section');
+        const testimonialsGrid = document.querySelector('.testimonials-grid');
+        const ctaPrincipal = document.querySelector('.cta-principal');
+
+        // ===== FUNÇÃO PARA SELECIONAR PLANO =====
+        function selecionarPlano(nivel) {
+            planoSelecionado = nivel;
+            
+            // Remover classe 'selecionado' de todos os cards
+            for (let i = 1; i <= 3; i++) {
+                if (cards[i]) cards[i].classList.remove('selecionado');
+            }
+            
+            // Adicionar classe 'selecionado' ao card atual
+            if (cards[nivel]) cards[nivel].classList.add('selecionado');
+            
+            // Mostrar seção de comunidade apenas se for Master (2) ou Black (3)
+            if (nivel === 2 || nivel === 3) {
+                comunidadeSection.classList.add('visible');
+            } else {
+                comunidadeSection.classList.remove('visible');
+            }
+        }
+
+        // Inicializar com plano 2 selecionado
+        selecionarPlano(2);
+
+        // ===== FUNÇÃO PARA COMPRAR (usada nos botões do resultado) =====
+        function comprar(nivel) {
+            window.location.href = links[nivel];
+        }
+
+        // ===== LÓGICA DO QUESTIONÁRIO =====
+        const perguntas = [
+            { tipo: 'texto', pergunta: '1. Seu nome completo', campo: 'nome' },
+            { tipo: 'email', pergunta: '2. Seu e-mail', campo: 'email' },
+            { tipo: 'tel', pergunta: '3. Seu WhatsApp com DDD', campo: 'whatsapp' },
+            { tipo: 'data', pergunta: '4. Sua data de nascimento (dd/mm/aaaa)', campo: 'data_nasc' },
+            { tipo: 'texto', pergunta: '5. Hora aproximada de nascimento (se souber)', campo: 'hora_nasc', opcional: true },
+            { tipo: 'texto', pergunta: '6. Cidade e estado onde nasceu', campo: 'cidade' },
+            { tipo: 'data', pergunta: '7. Data de nascimento do parceiro(a) (se souber)', campo: 'data_ex', opcional: true },
+            { tipo: 'opcoes', pergunta: '8. Há quanto tempo descobriu a traição?', campo: 'tempo_descobriu', opcoes: ['Dias', 'Semanas', 'Meses'] },
+            { tipo: 'opcoes', pergunta: '9. Como descobriu?', campo: 'como_descobriu', opcoes: ['Ele(a) confessou', 'Você descobriu', 'Outra pessoa contou'] },
+            { tipo: 'opcoes', pergunta: '10. A traição foi:', campo: 'tipo_traicao', opcoes: ['Uma noite', 'Um caso prolongado', 'Relação paralela', 'Não sei'] },
+            { tipo: 'opcoes', pergunta: '11. Com quem foi?', campo: 'com_quem', opcoes: ['Amiga', 'Colega de trabalho', 'Desconhecida', 'Ex', 'Outro'] },
+            { tipo: 'opcoes', pergunta: '12. Ele(a) demonstra arrependimento?', campo: 'arrependimento', opcoes: ['Sim', 'Não', 'Talvez'] },
+            { tipo: 'escala', pergunta: '13. Em uma escala de 1 a 10, o quanto você ainda confia nele(a)?', campo: 'confianca', min: 1, max: 10 },
+            { tipo: 'texto_longo', pergunta: '14. Descreva em poucas palavras o que você mais quer agora (seu desabafo):', campo: 'desejo' }
+        ];
+
+        let indiceAtual = 0;
+        let respostas = {};
+        const totalPerguntas = perguntas.length;
+
+        const btnAnterior = document.getElementById('btnAnterior');
+        const btnProximo = document.getElementById('btnProximo');
+        const perguntaContainer = document.getElementById('perguntaContainer');
+        const barraProgresso = document.getElementById('barraProgresso');
+        const passoTexto = document.getElementById('passoTexto');
+        const nomeClienteSpan = document.getElementById('nomeCliente');
+        const percentualValue = document.getElementById('percentualValue');
+        const perfilDetectado = document.getElementById('perfilDetectado');
+
+        function mostrarPergunta(index) {
+            const pergunta = perguntas[index];
+            if (!pergunta) return;
+
+            let html = `<div class="pergunta">${pergunta.pergunta}</div>`;
+
+            if (pergunta.tipo === 'opcoes') {
+                html += '<div class="opcoes">';
+                pergunta.opcoes.forEach(op => {
+                    const selecionada = respostas[pergunta.campo] === op ? 'selecionada' : '';
+                    html += `<div class="opcao ${selecionada}" data-valor="${op}">${op}</div>`;
+                });
+                html += '</div>';
+            } else if (pergunta.tipo === 'escala') {
+                const valorAtual = respostas[pergunta.campo] !== undefined ? respostas[pergunta.campo] : 5;
+                html += `<input type="range" min="${pergunta.min}" max="${pergunta.max}" step="1" value="${valorAtual}" id="input-${pergunta.campo}" style="width:100%;">`;
+                html += `<span id="valor-${pergunta.campo}" style="display:block; text-align:center; margin-top:8px;">${valorAtual}</span>`;
+            } else if (pergunta.tipo === 'texto_longo') {
+                html += `<textarea rows="5" id="input-${pergunta.campo}" placeholder="Escreva aqui...">${respostas[pergunta.campo] || ''}</textarea>`;
+            } else {
+                html += `<input type="${pergunta.tipo}" id="input-${pergunta.campo}" value="${respostas[pergunta.campo] || ''}" placeholder="${pergunta.pergunta}">`;
+            }
+
+            perguntaContainer.innerHTML = html;
+
+            const progresso = ((index + 1) / totalPerguntas) * 100;
+            barraProgresso.style.width = progresso + '%';
+            passoTexto.textContent = `Pergunta ${index + 1} de ${totalPerguntas}`;
+
+            btnAnterior.style.visibility = index === 0 ? 'hidden' : 'visible';
+
+            if (pergunta.tipo === 'opcoes') {
+                document.querySelectorAll('.opcao').forEach(el => {
+                    el.addEventListener('click', function() {
+                        document.querySelectorAll('.opcao').forEach(o => o.classList.remove('selecionada'));
+                        this.classList.add('selecionada');
+                        respostas[pergunta.campo] = this.dataset.valor;
+                    });
+                });
+            } else if (pergunta.tipo === 'escala') {
+                const input = document.getElementById(`input-${pergunta.campo}`);
+                const span = document.getElementById(`valor-${pergunta.campo}`);
+                if (input) {
+                    input.addEventListener('input', function() {
+                        span.textContent = this.value;
+                        respostas[pergunta.campo] = this.value;
+                    });
+                }
+            } else {
+                const input = document.getElementById(`input-${pergunta.campo}`);
+                if (input) {
+                    input.addEventListener('input', function(e) {
+                        respostas[pergunta.campo] = e.target.value;
+                    });
+                }
+            }
+        }
+
+        btnProximo.addEventListener('click', function() {
+            const perguntaAtual = perguntas[indiceAtual];
+
+            if (perguntaAtual.tipo === 'opcoes') {
+                if (!respostas[perguntaAtual.campo]) {
+                    alert('Por favor, selecione uma opção.');
+                    return;
+                }
+            } else if (perguntaAtual.tipo !== 'escala') {
+                const input = document.getElementById(`input-${perguntaAtual.campo}`);
+                if (input && !perguntaAtual.opcional && !input.value.trim()) {
+                    alert('Este campo é obrigatório.');
+                    return;
+                }
+                if (input) respostas[perguntaAtual.campo] = input.value;
+            }
+
+            if (indiceAtual < totalPerguntas - 1) {
+                indiceAtual++;
+                mostrarPergunta(indiceAtual);
+            } else {
+                // Final do questionário: mostrar tela de processamento
+                diagnosticoSection.style.display = 'none';
+                procesandoScreen.style.display = 'flex';
+                
+                // Simular processamento (3 segundos)
+                setTimeout(() => {
+                    procesandoScreen.style.display = 'none';
+                    telaResultado.style.display = 'block';
+                    nomeClienteSpan.textContent = respostas.nome || 'Cliente';
+                    
+                    // Gerar percentual aleatório e perfil
+                    const percentual = Math.floor(Math.random() * (98 - 85 + 1) + 85);
+                    percentualValue.textContent = percentual + '%';
+                    
+                    const perfis = ['NARCISISTA', 'MANIPULADOR', 'GASLIGHTER', 'EVASIVO', 'CONTROLADOR'];
+                    const perfil = perfis[Math.floor(Math.random() * perfis.length)];
+                    perfilDetectado.textContent = perfil;
+                    
+                    // Rolar até o resultado
+                    telaResultado.scrollIntoView({ behavior: 'smooth' });
+                }, 3000);
+            }
+        });
+
+        btnAnterior.addEventListener('click', function() {
+            if (indiceAtual > 0) {
+                indiceAtual--;
+                mostrarPergunta(indiceAtual);
+            }
+        });
+
+        // Ao clicar em "INICIAR ANÁLISE FORENSE"
+        btnIniciar.addEventListener('click', function() {
+            // Esconder seções que não são mais necessárias
+            if (pacotesSection) pacotesSection.style.display = 'none';
+            if (comunidadeSection) comunidadeSection.style.display = 'none';
+            if (testimonialsGrid) testimonialsGrid.style.display = 'none';
+            if (ctaPrincipal) ctaPrincipal.style.display = 'none';
+            
+            // Mostrar o questionário
+            diagnosticoSection.style.display = 'block';
+            diagnosticoSection.scrollIntoView({ behavior: 'smooth' });
+            
+            // Iniciar na primeira pergunta
+            indiceAtual = 0;
+            respostas = {}; // Limpar respostas anteriores (opcional)
+            mostrarPergunta(indiceAtual);
+        });
+    </script>
+</body>
+</html>
