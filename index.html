@@ -1275,9 +1275,10 @@
                     <h3>Desbloqueie seu dossiê completo</h3>
                     <p>Escolha abaixo o nível ideal para você:</p>
                     <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin: 20px 0;">
-                        <button class="btn-pacote" style="width:auto;" onclick="comprar(1)">Fênix R$67</button>
-                        <button class="btn-pacote destaque-btn" style="width:auto;" onclick="comprar(2)">Master R$97</button>
-                        <button class="btn-pacote" style="width:auto;" onclick="comprar(3)">Black R$147</button>
+                        <!-- BOTONES AHORA LLAMAN A enviarYRedirigir(nivel) -->
+                        <button class="btn-pacote" style="width:auto;" onclick="enviarYRedirigir(1)">Fênix R$67</button>
+                        <button class="btn-pacote destaque-btn" style="width:auto;" onclick="enviarYRedirigir(2)">Master R$97</button>
+                        <button class="btn-pacote" style="width:auto;" onclick="enviarYRedirigir(3)">Black R$147</button>
                     </div>
                     <p style="margin-top:15px; color:#b5a5b0;"><i class="fas fa-lock"></i> Pagamento 100% seguro via Hotmart</p>
                 </div>
@@ -1314,6 +1315,9 @@
             3: 'https://pay.hotmart.com/C104421790V?off=oferta3'  // Black
         };
 
+        // URL do Google Apps Script (fornecida por você)
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4ErykD6ZqQopCAKq_DV4R0zHk7IMKt_BWJWDIwwZLyuL5EusOtI4j70rGd9yTYHG9/exec';
+
         // Elementos
         const cards = {
             1: document.getElementById('plan1'),
@@ -1334,15 +1338,11 @@
         function selecionarPlano(nivel) {
             planoSelecionado = nivel;
             
-            // Remover classe 'selecionado' de todos os cards
             for (let i = 1; i <= 3; i++) {
                 if (cards[i]) cards[i].classList.remove('selecionado');
             }
-            
-            // Adicionar classe 'selecionado' ao card atual
             if (cards[nivel]) cards[nivel].classList.add('selecionado');
             
-            // Mostrar seção de comunidade apenas se for Master (2) ou Black (3)
             if (nivel === 2 || nivel === 3) {
                 comunidadeSection.classList.add('visible');
             } else {
@@ -1353,12 +1353,34 @@
         // Inicializar com plano 2 selecionado
         selecionarPlano(2);
 
-        // ===== FUNÇÃO PARA COMPRAR (usada nos botões do resultado) =====
-        function comprar(nivel) {
-            window.location.href = links[nivel];
+        // ===== NOVA FUNÇÃO: ENVIAR DADOS E REDIRECIONAR =====
+        async function enviarYRedirigir(nivel) {
+            // Mostrar loader
+            loader.style.display = 'flex';
+
+            // Adicionar o plano selecionado ao objeto respostas
+            const dadosCompletos = {
+                ...respostas,
+                plano_selecionado: nivel === 1 ? 'Fênix' : (nivel === 2 ? 'Master' : 'Black')
+            };
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Necessário para evitar erros de CORS
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dadosCompletos)
+                });
+                console.log('Dados enviados para o Google Sheets');
+            } catch (error) {
+                console.error('Erro ao enviar para o Google Sheets:', error);
+            } finally {
+                // Redirecionar para o link do Hotmart (mesmo com erro, para não perder a venda)
+                window.location.href = links[nivel];
+            }
         }
 
-        // ===== LÓGICA DO QUESTIONÁRIO =====
+        // ===== LÓGICA DO QUESTIONÁRIO (igual ao anterior) =====
         const perguntas = [
             { tipo: 'texto', pergunta: '1. Seu nome completo', campo: 'nome' },
             { tipo: 'email', pergunta: '2. Seu e-mail', campo: 'email' },
@@ -1472,13 +1494,11 @@
                 diagnosticoSection.style.display = 'none';
                 procesandoScreen.style.display = 'flex';
                 
-                // Simular processamento (3 segundos)
                 setTimeout(() => {
                     procesandoScreen.style.display = 'none';
                     telaResultado.style.display = 'block';
                     nomeClienteSpan.textContent = respostas.nome || 'Cliente';
                     
-                    // Gerar percentual aleatório e perfil
                     const percentual = Math.floor(Math.random() * (98 - 85 + 1) + 85);
                     percentualValue.textContent = percentual + '%';
                     
@@ -1486,7 +1506,6 @@
                     const perfil = perfis[Math.floor(Math.random() * perfis.length)];
                     perfilDetectado.textContent = perfil;
                     
-                    // Rolar até o resultado
                     telaResultado.scrollIntoView({ behavior: 'smooth' });
                 }, 3000);
             }
@@ -1499,21 +1518,17 @@
             }
         });
 
-        // Ao clicar em "INICIAR ANÁLISE FORENSE"
         btnIniciar.addEventListener('click', function() {
-            // Esconder seções que não são mais necessárias
             if (pacotesSection) pacotesSection.style.display = 'none';
             if (comunidadeSection) comunidadeSection.style.display = 'none';
             if (testimonialsGrid) testimonialsGrid.style.display = 'none';
             if (ctaPrincipal) ctaPrincipal.style.display = 'none';
             
-            // Mostrar o questionário
             diagnosticoSection.style.display = 'block';
             diagnosticoSection.scrollIntoView({ behavior: 'smooth' });
             
-            // Iniciar na primeira pergunta
             indiceAtual = 0;
-            respostas = {}; // Limpar respostas anteriores (opcional)
+            respostas = {};
             mostrarPergunta(indiceAtual);
         });
     </script>
