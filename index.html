@@ -742,7 +742,7 @@
             line-height: 1.7;
         }
 
-        /* Questionário */
+        /* Questionário inmersivo */
         .diagnostico-section {
             margin: 60px 0;
             background: rgba(0,0,0,0.3);
@@ -828,6 +828,14 @@
         textarea {
             min-height: 150px;
             resize: vertical;
+        }
+
+        .campo-descricao {
+            font-size: 0.9rem;
+            color: #b5a5b0;
+            margin-top: -5px;
+            margin-bottom: 15px;
+            font-style: italic;
         }
 
         .navegacao {
@@ -940,7 +948,7 @@
             color: var(--gold-bright);
         }
 
-        /* CTA principal (centro) */
+        /* CTA centro */
         .cta-centro {
             text-align: center;
             margin: 50px 0;
@@ -1121,7 +1129,7 @@
             </div>
         </section>
 
-        <!-- ===== SEÇÃO DE PACOTES ===== -->
+        <!-- ===== SEÇÃO DE PACOTES (3 NÍVEIS) ===== -->
         <section class="pacotes-section">
             <h2 style="color:var(--gold-bright);">Escolha o nível da sua análise</h2>
             <p style="color:#b5a5b0; max-width:700px; margin:0 auto;">Quanto mais profunda a investigação, mais clara a decisão. Todos os níveis incluem 7 dias de garantia.</p>
@@ -1140,7 +1148,7 @@
                         <li><i class="fas fa-check-circle"></i> Matriz de decisão</li>
                         <li><i class="fas fa-check-circle"></i> Áudio personalizado</li>
                     </ul>
-                    <button class="btn-pacote" onclick="event.stopPropagation(); selecionarPlano(1)">ESCOLHER</button>
+                    <button class="btn-pacote" onclick="event.stopPropagation(); selecionarPlanoEIniciar(1)">ESCOLHER</button>
                 </div>
                 <!-- NÍVEL 2: Master (Destaque) -->
                 <div class="pacote-card destaque" id="plan2" onclick="selecionarPlano(2)">
@@ -1156,7 +1164,7 @@
                         <li><i class="fas fa-check-circle"></i> Plano de ação 30 dias</li>
                         <li><i class="fas fa-check-circle"></i> <strong>COMUNIDADE VIP</strong></li>
                     </ul>
-                    <button class="btn-pacote destaque-btn" onclick="event.stopPropagation(); selecionarPlano(2)">ESCOLHER MASTER</button>
+                    <button class="btn-pacote destaque-btn" onclick="event.stopPropagation(); selecionarPlanoEIniciar(2)">ESCOLHER MASTER</button>
                 </div>
                 <!-- NÍVEL 3: Black -->
                 <div class="pacote-card" id="plan3" onclick="selecionarPlano(3)">
@@ -1172,7 +1180,7 @@
                         <li><i class="fas fa-check-circle"></i> Sessão de dúvidas (áudio)</li>
                         <li><i class="fas fa-check-circle"></i> Certificado exclusivo</li>
                     </ul>
-                    <button class="btn-pacote" onclick="event.stopPropagation(); selecionarPlano(3)">ESCOLHER BLACK</button>
+                    <button class="btn-pacote" onclick="event.stopPropagation(); selecionarPlanoEIniciar(3)">ESCOLHER BLACK</button>
                 </div>
             </div>
         </section>
@@ -1203,19 +1211,19 @@
             <div class="testimonial-card"><div class="testimonial-header"><div class="testimonial-foto"><img src="assets/imagenes/testimonial-livia.jpg" alt="Lívia"></div><div class="testimonial-nome"><h4>Lívia M.</h4><p>41 anos • 1 mês atrás</p></div></div><p class="testimonial-texto">"Usei o plano de ação pra reconstruir com limites. Hoje estamos melhor que antes. A psicóloga do grupo foi essencial."</p></div>
         </div>
 
-        <!-- ===== CTA CENTRO (ÚNICO BOTÓN) ===== -->
+        <!-- ===== CTA CENTRO (SEGUNDO BOTÃO) ===== -->
         <div class="cta-centro">
             <h3 style="color:var(--gold-bright); margin-bottom:30px;">Comece sua jornada agora</h3>
-            <button class="btn-gold" id="btnCentro"><i class="fas fa-star"></i> INICIAR ANÁLISE</button>
+            <button class="btn-pulse" id="btnCentro"><i class="fas fa-star"></i> INICIAR ANÁLISE</button>
             <p style="margin-top:15px; color:#b5a5b0;"><i class="fas fa-lock"></i> Dados sigilosos • Garantia de 7 dias • Acesso à comunidade (Master/Black)</p>
         </div>
 
-        <!-- ===== BOTÓN FLOTANTE BURBUJA (ABAJO) ===== -->
+        <!-- ===== BOTÓN FLOTANTE BURBUJA (TERCER BOTÃO) ===== -->
         <div class="btn-bubble" id="btnFlotante" title="Iniciar Análise">
             <i class="fas fa-star"></i>
         </div>
 
-        <!-- ===== ÁREA DO DIAGNÓSTICO ===== -->
+        <!-- ===== ÁREA DO DIAGNÓSTICO (questionário imersivo) ===== -->
         <section class="diagnostico-section" id="diagnosticoSection">
             <div style="max-width:720px; margin:0 auto;">
                 <div class="progresso"><div class="barra-progresso" id="barraProgresso"></div><div style="text-align:right; margin-top:5px; color:var(--gold-bright);" id="passoTexto">Pergunta 1 de 14</div></div>
@@ -1278,7 +1286,7 @@
         // ===== VARIÁVEIS GLOBAIS =====
         let planoSelecionado = 2;
 
-        // Links de Hotmart
+        // Links de Hotmart fornecidos pelo usuário
         const links = {
             1: 'https://pay.hotmart.com/C104421790V', // Fênix
             2: 'https://pay.hotmart.com/A104699356E', // Master
@@ -1288,7 +1296,7 @@
         // URL do Google Apps Script
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxP71d-mtdUxZRrIlXxEFZq3h_t_CqS1-zTFyqaBaYisH64HokInXGOIHQ5hga-VArW/exec';
 
-        // Número de WhatsApp (respaldo automático)
+        // Número de WhatsApp do administrador (Ecuador)
         const WHATSAPP_NUMBER = '593969894550';
 
         // Elementos
@@ -1309,6 +1317,7 @@
         const testimonialsGrid = document.querySelector('.testimonials-grid');
         const ctaCentro = document.querySelector('.cta-centro');
 
+        // Función para seleccionar plano (solo selección visual)
         function selecionarPlano(nivel) {
             planoSelecionado = nivel;
             for (let i = 1; i <= 3; i++) {
@@ -1321,8 +1330,17 @@
                 comunidadeSection.classList.remove('visible');
             }
         }
+
+        // Función para seleccionar plano y luego iniciar el cuestionario
+        function selecionarPlanoEIniciar(nivel) {
+            selecionarPlano(nivel);
+            iniciarQuestionario();
+        }
+
+        // Inicializar con plano 2 seleccionado
         selecionarPlano(2);
 
+        // Función para enviar datos a Google Sheets y redirigir (con fallback WhatsApp automático)
         async function enviarYRedirigir(nivel) {
             loader.style.display = 'flex';
             const dadosCompletos = {
@@ -1342,29 +1360,35 @@
                 console.log('✅ Requisição enviada (no-cors)');
             } catch (error) {
                 console.error('❌ Erro ao enviar para Google Sheets, enviando por WhatsApp...', error);
-                // Envío automático por WhatsApp
-                const mensagem = `*Novo Diagnóstico - Protocolo Fênix (Falha Sheets)*\n` +
-                    `Nome: ${dadosCompletos.nome || 'Não informado'}\n` +
-                    `Email: ${dadosCompletos.email || 'Não informado'}\n` +
-                    `WhatsApp: ${dadosCompletos.whatsapp || 'Não informado'}\n` +
-                    `Data Nasc: ${dadosCompletos.data_nasc || 'Não informado'}\n` +
-                    `Cidade: ${dadosCompletos.cidade || 'Não informado'}\n` +
-                    `Tempo descoberta: ${dadosCompletos.tempo_descobriu || 'Não informado'}\n` +
-                    `Como descobriu: ${dadosCompletos.como_descobriu || 'Não informado'}\n` +
-                    `Tipo traição: ${dadosCompletos.tipo_traicao || 'Não informado'}\n` +
-                    `Com quem: ${dadosCompletos.com_quem || 'Não informado'}\n` +
-                    `Arrependimento: ${dadosCompletos.arrependimento || 'Não informado'}\n` +
-                    `Confiança: ${dadosCompletos.confianca || 'Não informado'}\n` +
-                    `Desejo: ${dadosCompletos.desejo || 'Não informado'}\n` +
-                    `Plano selecionado: ${dadosCompletos.plano_selecionado}`;
-
-                const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(mensagem)}`;
-                window.open(url, '_blank');
+                enviarWhatsApp(dadosCompletos);
             } finally {
                 window.location.href = links[nivel];
             }
         }
 
+        // Función para enviar datos por WhatsApp (respaldo automático)
+        function enviarWhatsApp(dados) {
+            const plano = dados.plano_selecionado;
+            const mensagem = `*Novo Diagnóstico - Protocolo Fênix (Falha Sheets)*\n` +
+                `Nome: ${dados.nome || 'Não informado'}\n` +
+                `Email: ${dados.email || 'Não informado'}\n` +
+                `WhatsApp: ${dados.whatsapp || 'Não informado'}\n` +
+                `Data Nasc: ${dados.data_nasc || 'Não informado'}\n` +
+                `Cidade: ${dados.cidade || 'Não informado'}\n` +
+                `Tempo descoberta: ${dados.tempo_descobriu || 'Não informado'}\n` +
+                `Como descobriu: ${dados.como_descobriu || 'Não informado'}\n` +
+                `Tipo traição: ${dados.tipo_traicao || 'Não informado'}\n` +
+                `Com quem: ${dados.com_quem || 'Não informado'}\n` +
+                `Arrependimento: ${dados.arrependimento || 'Não informado'}\n` +
+                `Confiança: ${dados.confianca || 'Não informado'}\n` +
+                `Desejo: ${dados.desejo || 'Não informado'}\n` +
+                `Plano selecionado: ${plano}`;
+
+            const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+
+        // Función para iniciar el cuestionario (llamada por todos los botones CTA y por los botones de plan)
         function iniciarQuestionario() {
             if (pacotesSection) pacotesSection.style.display = 'none';
             if (comunidadeSection) comunidadeSection.style.display = 'none';
@@ -1381,22 +1405,27 @@
         btnCentro.addEventListener('click', iniciarQuestionario);
         btnFlotante.addEventListener('click', iniciarQuestionario);
 
-        // Lógica del cuestionario (igual, con Enter)
+        // ===== LÓGICA DO QUESTIONÁRIO =====
+        // Base de perguntas com descrições e lógica condicional
         const perguntas = [
-            { tipo: 'texto', pergunta: '1. Seu nome completo', campo: 'nome' },
-            { tipo: 'email', pergunta: '2. Seu e-mail', campo: 'email' },
-            { tipo: 'tel', pergunta: '3. Seu WhatsApp com DDD', campo: 'whatsapp' },
-            { tipo: 'data', pergunta: '4. Sua data de nascimento (dd/mm/aaaa)', campo: 'data_nasc' },
-            { tipo: 'texto', pergunta: '5. Hora aproximada de nascimento (se souber)', campo: 'hora_nasc', opcional: true },
-            { tipo: 'texto', pergunta: '6. Cidade e estado onde nasceu', campo: 'cidade' },
-            { tipo: 'data', pergunta: '7. Data de nascimento do parceiro(a) (se souber)', campo: 'data_ex', opcional: true },
-            { tipo: 'opcoes', pergunta: '8. Há quanto tempo descobriu a traição?', campo: 'tempo_descobriu', opcoes: ['Dias', 'Semanas', 'Meses'] },
-            { tipo: 'opcoes', pergunta: '9. Como descobriu?', campo: 'como_descobriu', opcoes: ['Ele(a) confessou', 'Você descobriu', 'Outra pessoa contou'] },
-            { tipo: 'opcoes', pergunta: '10. A traição foi:', campo: 'tipo_traicao', opcoes: ['Uma noite', 'Um caso prolongado', 'Relação paralela', 'Não sei'] },
-            { tipo: 'opcoes', pergunta: '11. Com quem foi?', campo: 'com_quem', opcoes: ['Amiga', 'Colega de trabalho', 'Desconhecida', 'Ex', 'Outro'] },
-            { tipo: 'opcoes', pergunta: '12. Ele(a) demonstra arrependimento?', campo: 'arrependimento', opcoes: ['Sim', 'Não', 'Talvez'] },
-            { tipo: 'escala', pergunta: '13. Em uma escala de 1 a 10, o quanto você ainda confia nele(a)?', campo: 'confianca', min: 1, max: 10 },
-            { tipo: 'texto_longo', pergunta: '14. Descreva em poucas palavras o que você mais quer agora (seu desabafo):', campo: 'desejo' }
+            { tipo: 'texto', pergunta: '1. Seu nome completo', campo: 'nome', descricao: 'Como você gostaria de ser chamada?' },
+            { tipo: 'email', pergunta: '2. Seu e-mail', campo: 'email', descricao: 'Usaremos para enviar seu dossiê' },
+            { tipo: 'tel', pergunta: '3. Seu WhatsApp com DDD', campo: 'whatsapp', descricao: 'Para contato rápido, se necessário' },
+            { tipo: 'data', pergunta: '4. Sua data de nascimento', campo: 'data_nasc', descricao: 'Essencial para o mapa astral' },
+            { tipo: 'texto', pergunta: '5. Hora aproximada de nascimento', campo: 'hora_nasc', opcional: true, descricao: 'Opcional, mas aumenta a precisão do mapa' },
+            { tipo: 'texto', pergunta: '6. Cidade e estado onde nasceu', campo: 'cidade', descricao: 'Ex: São Paulo, SP' },
+            { tipo: 'data', pergunta: '7. Data de nascimento do parceiro(a)', campo: 'data_ex', opcional: true, descricao: 'Se não souber, deixe em branco' },
+            { tipo: 'opcoes', pergunta: '8. Há quanto tempo descobriu a traição?', campo: 'tempo_descobriu', opcoes: ['Dias', 'Semanas', 'Meses'], descricao: 'Isso ajuda a entender a urgência' },
+            { tipo: 'opcoes', pergunta: '9. Como descobriu?', campo: 'como_descobriu', opcoes: ['Ele(a) confessou', 'Você descobriu', 'Outra pessoa contou'], descricao: 'A forma como descobriu influencia o impacto' },
+            // Pregunta condicional: se escolher "Outra pessoa contou", aparece campo para especificar
+            { tipo: 'texto', pergunta: '9.1. Quem foi a pessoa que contou?', campo: 'quem_contou', opcional: false, condicao: { campo: 'como_descobriu', valor: 'Outra pessoa contou' }, descricao: 'Isso pode revelar dinâmicas ocultas' },
+            { tipo: 'opcoes', pergunta: '10. A traição foi:', campo: 'tipo_traicao', opcoes: ['Uma noite', 'Um caso prolongado', 'Relação paralela', 'Não sei'], descricao: 'A duração muda a análise' },
+            { tipo: 'opcoes', pergunta: '11. Com quem foi?', campo: 'com_quem', opcoes: ['Amiga', 'Colega de trabalho', 'Desconhecida', 'Ex', 'Outro'], descricao: 'O contexto da pessoa envolvida é relevante' },
+            // Pregunta condicional: se escolher "Outro", aparece campo para especificar
+            { tipo: 'texto', pergunta: '11.1. Especifique com quem foi:', campo: 'com_quem_outro', opcional: false, condicao: { campo: 'com_quem', valor: 'Outro' }, descricao: 'Conte-nos mais sobre essa pessoa' },
+            { tipo: 'opcoes', pergunta: '12. Ele(a) demonstra arrependimento?', campo: 'arrependimento', opcoes: ['Sim', 'Não', 'Talvez'], descricao: 'O arrependimento é um fator chave' },
+            { tipo: 'escala', pergunta: '13. Em uma escala de 1 a 10, o quanto você ainda confia nele(a)?', campo: 'confianca', min: 1, max: 10, descricao: '1 = nenhuma confiança, 10 = confiança total' },
+            { tipo: 'texto_longo', pergunta: '14. Descreva em poucas palavras o que você mais quer agora (seu desabafo):', campo: 'desejo', descricao: 'Fique à vontade para se expressar' }
         ];
 
         let indiceAtual = 0;
@@ -1412,11 +1441,25 @@
         const percentualValue = document.getElementById('percentualValue');
         const perfilDetectado = document.getElementById('perfilDetectado');
 
+        // Función para filtrar perguntas según condiciones
+        function getPerguntasVisiveis() {
+            return perguntas.filter(p => {
+                if (p.condicao) {
+                    return respostas[p.condicao.campo] === p.condicao.valor;
+                }
+                return true;
+            });
+        }
+
         function mostrarPergunta(index) {
-            const pergunta = perguntas[index];
+            const perguntasVisiveis = getPerguntasVisiveis();
+            const pergunta = perguntasVisiveis[index];
             if (!pergunta) return;
 
             let html = `<div class="pergunta">${pergunta.pergunta}</div>`;
+            if (pergunta.descricao) {
+                html += `<div class="campo-descricao">${pergunta.descricao}</div>`;
+            }
 
             if (pergunta.tipo === 'opcoes') {
                 html += '<div class="opcoes">';
@@ -1437,9 +1480,10 @@
 
             perguntaContainer.innerHTML = html;
 
-            const progresso = ((index + 1) / totalPerguntas) * 100;
+            const perguntasVisiveisCount = perguntasVisiveis.length;
+            const progresso = ((index + 1) / perguntasVisiveisCount) * 100;
             barraProgresso.style.width = progresso + '%';
-            passoTexto.textContent = `Pergunta ${index + 1} de ${totalPerguntas}`;
+            passoTexto.textContent = `Pergunta ${index + 1} de ${perguntasVisiveisCount}`;
 
             btnAnterior.style.visibility = index === 0 ? 'hidden' : 'visible';
 
@@ -1466,6 +1510,13 @@
                     input.addEventListener('input', function(e) {
                         respostas[pergunta.campo] = e.target.value;
                     });
+                }
+            }
+
+            // Evento Enter en inputs y textareas
+            if (pergunta.tipo !== 'opcoes' && pergunta.tipo !== 'escala') {
+                const input = document.getElementById(`input-${pergunta.campo}`);
+                if (input) {
                     input.addEventListener('keydown', function(e) {
                         if (e.key === 'Enter') {
                             e.preventDefault();
@@ -1477,7 +1528,8 @@
         }
 
         btnProximo.addEventListener('click', function() {
-            const perguntaAtual = perguntas[indiceAtual];
+            const perguntasVisiveis = getPerguntasVisiveis();
+            const perguntaAtual = perguntasVisiveis[indiceAtual];
 
             if (perguntaAtual.tipo === 'opcoes') {
                 if (!respostas[perguntaAtual.campo]) {
@@ -1493,7 +1545,7 @@
                 if (input) respostas[perguntaAtual.campo] = input.value;
             }
 
-            if (indiceAtual < totalPerguntas - 1) {
+            if (indiceAtual < perguntasVisiveis.length - 1) {
                 indiceAtual++;
                 mostrarPergunta(indiceAtual);
             } else {
@@ -1519,6 +1571,11 @@
                 mostrarPergunta(indiceAtual);
             }
         });
+
+        // Función de depuración
+        window.probarEnvio = () => {
+            enviarYRedirigir(planoSelecionado);
+        };
     </script>
 </body>
 </html>
