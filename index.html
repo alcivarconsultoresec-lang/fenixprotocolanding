@@ -1315,8 +1315,8 @@
             3: 'https://pay.hotmart.com/C104421790V?off=oferta3'  // Black
         };
 
-        // URL do Google Apps Script (fornecida por você)
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4ErykD6ZqQopCAKq_DV4R0zHk7IMKt_BWJWDIwwZLyuL5EusOtI4j70rGd9yTYHG9/exec';
+        // ===== URL CORRETA DO GOOGLE APPS SCRIPT (da sua última captura) =====
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwv7z0aiuC9ZtL5k4z4RacrUVWtsaYnkWPXFM2jSVsATPZ9RCgOElKnyICM.../exec';
 
         // Elementos
         const cards = {
@@ -1371,16 +1371,16 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(dadosCompletos)
                 });
-                console.log('Dados enviados para o Google Sheets');
+                console.log('✅ Dados enviados para o Google Sheets');
             } catch (error) {
-                console.error('Erro ao enviar para o Google Sheets:', error);
+                console.error('❌ Erro ao enviar para o Google Sheets:', error);
             } finally {
                 // Redirecionar para o link do Hotmart (mesmo com erro, para não perder a venda)
                 window.location.href = links[nivel];
             }
         }
 
-        // ===== LÓGICA DO QUESTIONÁRIO (igual ao anterior) =====
+        // ===== LÓGICA DO QUESTIONÁRIO =====
         const perguntas = [
             { tipo: 'texto', pergunta: '1. Seu nome completo', campo: 'nome' },
             { tipo: 'email', pergunta: '2. Seu e-mail', campo: 'email' },
