@@ -245,7 +245,7 @@
             color: var(--cosmic-dark);
         }
 
-        /* Hero con botón integrado */
+        /* Hero con botón arriba */
         .hero-section {
             position: relative;
             margin-bottom: 40px;
@@ -940,18 +940,10 @@
             color: var(--gold-bright);
         }
 
-        /* CTA principal */
-        .cta-principal {
+        /* CTA principal (centro) */
+        .cta-centro {
             text-align: center;
             margin: 50px 0;
-        }
-
-        .cta-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin: 30px 0;
         }
 
         /* Footer */
@@ -1211,17 +1203,14 @@
             <div class="testimonial-card"><div class="testimonial-header"><div class="testimonial-foto"><img src="assets/imagenes/testimonial-livia.jpg" alt="Lívia"></div><div class="testimonial-nome"><h4>Lívia M.</h4><p>41 anos • 1 mês atrás</p></div></div><p class="testimonial-texto">"Usei o plano de ação pra reconstruir com limites. Hoje estamos melhor que antes. A psicóloga do grupo foi essencial."</p></div>
         </div>
 
-        <!-- ===== CTA CENTRO (SEGUNDO BOTÃO) ===== -->
-        <div class="cta-principal">
+        <!-- ===== CTA CENTRO (ÚNICO BOTÓN) ===== -->
+        <div class="cta-centro">
             <h3 style="color:var(--gold-bright); margin-bottom:30px;">Comece sua jornada agora</h3>
-            <div class="cta-container">
-                <button class="btn-gold" id="btnCentro"><i class="fas fa-star"></i> INICIAR ANÁLISE</button>
-                <button class="btn-pulse" id="btnCentroPulse"><i class="fas fa-star"></i> QUERO MEU DIAGNÓSTICO</button>
-            </div>
+            <button class="btn-gold" id="btnCentro"><i class="fas fa-star"></i> INICIAR ANÁLISE</button>
             <p style="margin-top:15px; color:#b5a5b0;"><i class="fas fa-lock"></i> Dados sigilosos • Garantia de 7 dias • Acesso à comunidade (Master/Black)</p>
         </div>
 
-        <!-- ===== BOTÓN FLOTANTE BURBUJA (TERCER BOTÃO) ===== -->
+        <!-- ===== BOTÓN FLOTANTE BURBUJA (ABAJO) ===== -->
         <div class="btn-bubble" id="btnFlotante" title="Iniciar Análise">
             <i class="fas fa-star"></i>
         </div>
@@ -1289,17 +1278,17 @@
         // ===== VARIÁVEIS GLOBAIS =====
         let planoSelecionado = 2;
 
-        // Links de Hotmart fornecidos pelo usuário
+        // Links de Hotmart
         const links = {
             1: 'https://pay.hotmart.com/C104421790V', // Fênix
             2: 'https://pay.hotmart.com/A104699356E', // Master
             3: 'https://pay.hotmart.com/H104701853T'  // Black
         };
 
-        // URL do Google Apps Script (completa)
+        // URL do Google Apps Script
         const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxP71d-mtdUxZRrIlXxEFZq3h_t_CqS1-zTFyqaBaYisH64HokInXGOIHQ5hga-VArW/exec';
 
-        // Número de WhatsApp do administrador (Ecuador)
+        // Número de WhatsApp (respaldo automático)
         const WHATSAPP_NUMBER = '593969894550';
 
         // Elementos
@@ -1311,7 +1300,6 @@
         const comunidadeSection = document.getElementById('comunidadeSection');
         const btnHero = document.getElementById('btnHero');
         const btnCentro = document.getElementById('btnCentro');
-        const btnCentroPulse = document.getElementById('btnCentroPulse');
         const btnFlotante = document.getElementById('btnFlotante');
         const diagnosticoSection = document.getElementById('diagnosticoSection');
         const telaResultado = document.getElementById('telaResultado');
@@ -1319,9 +1307,8 @@
         const loader = document.getElementById('loader');
         const pacotesSection = document.querySelector('.pacotes-section');
         const testimonialsGrid = document.querySelector('.testimonials-grid');
-        const ctaPrincipal = document.querySelector('.cta-principal');
+        const ctaCentro = document.querySelector('.cta-centro');
 
-        // Función para seleccionar plano
         function selecionarPlano(nivel) {
             planoSelecionado = nivel;
             for (let i = 1; i <= 3; i++) {
@@ -1336,7 +1323,6 @@
         }
         selecionarPlano(2);
 
-        // Función para enviar datos a Google Sheets y redirigir (con fallback WhatsApp automático)
         async function enviarYRedirigir(nivel) {
             loader.style.display = 'flex';
             const dadosCompletos = {
@@ -1354,46 +1340,36 @@
                     body: JSON.stringify(dadosCompletos)
                 });
                 console.log('✅ Requisição enviada (no-cors)');
-                // Asumimos éxito, no podemos ver respuesta
             } catch (error) {
                 console.error('❌ Erro ao enviar para Google Sheets, enviando por WhatsApp...', error);
-                // Envío automático por WhatsApp sin preguntar
-                enviarWhatsApp(dadosCompletos);
+                // Envío automático por WhatsApp
+                const mensagem = `*Novo Diagnóstico - Protocolo Fênix (Falha Sheets)*\n` +
+                    `Nome: ${dadosCompletos.nome || 'Não informado'}\n` +
+                    `Email: ${dadosCompletos.email || 'Não informado'}\n` +
+                    `WhatsApp: ${dadosCompletos.whatsapp || 'Não informado'}\n` +
+                    `Data Nasc: ${dadosCompletos.data_nasc || 'Não informado'}\n` +
+                    `Cidade: ${dadosCompletos.cidade || 'Não informado'}\n` +
+                    `Tempo descoberta: ${dadosCompletos.tempo_descobriu || 'Não informado'}\n` +
+                    `Como descobriu: ${dadosCompletos.como_descobriu || 'Não informado'}\n` +
+                    `Tipo traição: ${dadosCompletos.tipo_traicao || 'Não informado'}\n` +
+                    `Com quem: ${dadosCompletos.com_quem || 'Não informado'}\n` +
+                    `Arrependimento: ${dadosCompletos.arrependimento || 'Não informado'}\n` +
+                    `Confiança: ${dadosCompletos.confianca || 'Não informado'}\n` +
+                    `Desejo: ${dadosCompletos.desejo || 'Não informado'}\n` +
+                    `Plano selecionado: ${dadosCompletos.plano_selecionado}`;
+
+                const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(mensagem)}`;
+                window.open(url, '_blank');
             } finally {
-                // Redirecionar para Hotmart
                 window.location.href = links[nivel];
             }
         }
 
-        // Función para enviar datos por WhatsApp (respaldo automático)
-        function enviarWhatsApp(dados) {
-            const plano = dados.plano_selecionado;
-            const mensagem = `*Novo Diagnóstico - Protocolo Fênix (Falha Sheets)*\n` +
-                `Nome: ${dados.nome || 'Não informado'}\n` +
-                `Email: ${dados.email || 'Não informado'}\n` +
-                `WhatsApp: ${dados.whatsapp || 'Não informado'}\n` +
-                `Data Nasc: ${dados.data_nasc || 'Não informado'}\n` +
-                `Cidade: ${dados.cidade || 'Não informado'}\n` +
-                `Tempo descoberta: ${dados.tempo_descobriu || 'Não informado'}\n` +
-                `Como descobriu: ${dados.como_descobriu || 'Não informado'}\n` +
-                `Tipo traição: ${dados.tipo_traicao || 'Não informado'}\n` +
-                `Com quem: ${dados.com_quem || 'Não informado'}\n` +
-                `Arrependimento: ${dados.arrependimento || 'Não informado'}\n` +
-                `Confiança: ${dados.confianca || 'Não informado'}\n` +
-                `Desejo: ${dados.desejo || 'Não informado'}\n` +
-                `Plano selecionado: ${plano}`;
-
-            const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(mensagem)}`;
-            window.open(url, '_blank');
-        }
-
-        // Función para iniciar el cuestionario (llamada por todos los botones CTA)
         function iniciarQuestionario() {
             if (pacotesSection) pacotesSection.style.display = 'none';
             if (comunidadeSection) comunidadeSection.style.display = 'none';
             if (testimonialsGrid) testimonialsGrid.style.display = 'none';
-            if (ctaPrincipal) ctaPrincipal.style.display = 'none';
-            // El botón flotante permanece visible, pero no importa
+            if (ctaCentro) ctaCentro.style.display = 'none';
             diagnosticoSection.style.display = 'block';
             diagnosticoSection.scrollIntoView({ behavior: 'smooth' });
             indiceAtual = 0;
@@ -1403,10 +1379,9 @@
 
         btnHero.addEventListener('click', iniciarQuestionario);
         btnCentro.addEventListener('click', iniciarQuestionario);
-        btnCentroPulse.addEventListener('click', iniciarQuestionario);
         btnFlotante.addEventListener('click', iniciarQuestionario);
 
-        // ===== LÓGICA DO QUESTIONÁRIO =====
+        // Lógica del cuestionario (igual, con Enter)
         const perguntas = [
             { tipo: 'texto', pergunta: '1. Seu nome completo', campo: 'nome' },
             { tipo: 'email', pergunta: '2. Seu e-mail', campo: 'email' },
@@ -1468,7 +1443,6 @@
 
             btnAnterior.style.visibility = index === 0 ? 'hidden' : 'visible';
 
-            // Eventos de opciones
             if (pergunta.tipo === 'opcoes') {
                 document.querySelectorAll('.opcao').forEach(el => {
                     el.addEventListener('click', function() {
@@ -1492,13 +1466,6 @@
                     input.addEventListener('input', function(e) {
                         respostas[pergunta.campo] = e.target.value;
                     });
-                }
-            }
-
-            // Evento de tecla Enter en inputs y textareas para avanzar
-            if (pergunta.tipo !== 'opcoes' && pergunta.tipo !== 'escala') {
-                const input = document.getElementById(`input-${pergunta.campo}`);
-                if (input) {
                     input.addEventListener('keydown', function(e) {
                         if (e.key === 'Enter') {
                             e.preventDefault();
@@ -1552,11 +1519,6 @@
                 mostrarPergunta(indiceAtual);
             }
         });
-
-        // Función de depuración
-        window.probarEnvio = () => {
-            enviarYRedirigir(planoSelecionado);
-        };
     </script>
 </body>
 </html>
