@@ -18,7 +18,6 @@
             --cosmic-dark: #0a0710;
             --deep-purple: #1a1120;
             --royal-lavender: #bba5d1;
-            --sacred-gold: #e8d5b5;
             --gold-bright: #FFD700;
             --gold-glow: 0 0 20px #FFD700, 0 0 40px rgba(255, 215, 0, 0.5);
             --shadow-heavy: 0 30px 60px -15px rgba(0,0,0,0.8);
@@ -81,6 +80,7 @@
             z-index: 10;
         }
 
+        /* Componentes reutilizables */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -245,7 +245,7 @@
             color: var(--cosmic-dark);
         }
 
-        /* Hero */
+        /* Hero con botón integrado */
         .hero-section {
             position: relative;
             margin-bottom: 40px;
@@ -304,9 +304,13 @@
             font-size: 1.3rem;
             color: #d9c9b0;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto 30px;
             font-weight: 300;
             text-shadow: 0 2px 10px black;
+        }
+
+        .hero-btn {
+            margin-top: 20px;
         }
 
         /* Authority strip */
@@ -1028,7 +1032,7 @@
 <body>
     <div class="container">
 
-        <!-- ===== HERO ===== -->
+        <!-- ===== HERO CON BOTÓN ARRIBA ===== -->
         <section class="hero-section">
             <div class="hero-image-container">
                 <img src="assets/imagenes/hero.jpg" alt="Dossiê da Traição" class="hero-image" loading="eager">
@@ -1039,6 +1043,9 @@
                     </div>
                     <h1>DOSSIÊ DA TRAIÇÃO<br><span style="font-size:0.7em; display:block;">DIAGNÓSTICO FORENSE</span></h1>
                     <p class="hero-subhead">A única análise que cruza astrologia, numerologia, quiromancia, carta natal e psicologia profunda para revelar padrões ocultos da traição.</p>
+                    <div class="hero-btn">
+                        <button class="btn-gold" id="btnHero"><i class="fas fa-star"></i> INICIAR ANÁLISE</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1204,19 +1211,19 @@
             <div class="testimonial-card"><div class="testimonial-header"><div class="testimonial-foto"><img src="assets/imagenes/testimonial-livia.jpg" alt="Lívia"></div><div class="testimonial-nome"><h4>Lívia M.</h4><p>41 anos • 1 mês atrás</p></div></div><p class="testimonial-texto">"Usei o plano de ação pra reconstruir com limites. Hoje estamos melhor que antes. A psicóloga do grupo foi essencial."</p></div>
         </div>
 
-        <!-- ===== TRES FORMATOS DE CTA ===== -->
+        <!-- ===== CTA CENTRO (SEGUNDO BOTÃO) ===== -->
         <div class="cta-principal">
             <h3 style="color:var(--gold-bright); margin-bottom:30px;">Comece sua jornada agora</h3>
             <div class="cta-container">
-                <button class="btn-gold" id="btnIniciarAnalise"><i class="fas fa-search"></i> INICIAR ANÁLISE</button>
-                <button class="btn-pulse" id="btnIniciarAnalise2"><i class="fas fa-search"></i> QUERO MEU DIAGNÓSTICO</button>
+                <button class="btn-gold" id="btnCentro"><i class="fas fa-star"></i> INICIAR ANÁLISE</button>
+                <button class="btn-pulse" id="btnCentroPulse"><i class="fas fa-star"></i> QUERO MEU DIAGNÓSTICO</button>
             </div>
             <p style="margin-top:15px; color:#b5a5b0;"><i class="fas fa-lock"></i> Dados sigilosos • Garantia de 7 dias • Acesso à comunidade (Master/Black)</p>
         </div>
 
-        <!-- ===== BOTÓN FLOTANTE BURBUJA ===== -->
+        <!-- ===== BOTÓN FLOTANTE BURBUJA (TERCER BOTÃO) ===== -->
         <div class="btn-bubble" id="btnFlotante" title="Iniciar Análise">
-            <i class="fas fa-search"></i>
+            <i class="fas fa-star"></i>
         </div>
 
         <!-- ===== ÁREA DO DIAGNÓSTICO ===== -->
@@ -1261,8 +1268,6 @@
                         <button class="btn-pacote" style="width:auto;" onclick="enviarYRedirigir(3)">Black R$147</button>
                     </div>
                     <p style="margin-top:15px; color:#b5a5b0;"><i class="fas fa-lock"></i> Pagamento 100% seguro via Hotmart</p>
-                    <!-- Botão de respaldo WhatsApp (só aparece se falhar, mas fica acessível) -->
-                    <button class="btn-secundario" onclick="enviarWhatsApp()" style="margin-top:10px;"><i class="fab fa-whatsapp"></i> Enviar diagnóstico por WhatsApp</button>
                 </div>
             </div>
         </section>
@@ -1304,8 +1309,9 @@
             3: document.getElementById('plan3')
         };
         const comunidadeSection = document.getElementById('comunidadeSection');
-        const btnIniciar = document.getElementById('btnIniciarAnalise');
-        const btnIniciar2 = document.getElementById('btnIniciarAnalise2');
+        const btnHero = document.getElementById('btnHero');
+        const btnCentro = document.getElementById('btnCentro');
+        const btnCentroPulse = document.getElementById('btnCentroPulse');
         const btnFlotante = document.getElementById('btnFlotante');
         const diagnosticoSection = document.getElementById('diagnosticoSection');
         const telaResultado = document.getElementById('telaResultado');
@@ -1315,6 +1321,7 @@
         const testimonialsGrid = document.querySelector('.testimonials-grid');
         const ctaPrincipal = document.querySelector('.cta-principal');
 
+        // Función para seleccionar plano
         function selecionarPlano(nivel) {
             planoSelecionado = nivel;
             for (let i = 1; i <= 3; i++) {
@@ -1329,7 +1336,7 @@
         }
         selecionarPlano(2);
 
-        // Função para enviar dados e redirecionar (com fallback WhatsApp)
+        // Función para enviar datos a Google Sheets y redirigir (con fallback WhatsApp automático)
         async function enviarYRedirigir(nivel) {
             loader.style.display = 'flex';
             const dadosCompletos = {
@@ -1347,24 +1354,21 @@
                     body: JSON.stringify(dadosCompletos)
                 });
                 console.log('✅ Requisição enviada (no-cors)');
-                // Como é no-cors, não podemos ver a resposta, mas assumimos sucesso
+                // Asumimos éxito, no podemos ver respuesta
             } catch (error) {
-                console.error('❌ Erro ao enviar:', error);
-                // Fallback: perguntar se quer enviar por WhatsApp
-                if (confirm('Falha no envio automático. Deseja enviar os dados por WhatsApp?')) {
-                    enviarWhatsApp();
-                }
+                console.error('❌ Erro ao enviar para Google Sheets, enviando por WhatsApp...', error);
+                // Envío automático por WhatsApp sin preguntar
+                enviarWhatsApp(dadosCompletos);
             } finally {
                 // Redirecionar para Hotmart
                 window.location.href = links[nivel];
             }
         }
 
-        // Função para enviar dados por WhatsApp (mensagem para o administrador)
-        function enviarWhatsApp() {
-            const dados = respostas;
-            const plano = planoSelecionado === 1 ? 'Fênix' : (planoSelecionado === 2 ? 'Master' : 'Black');
-            const mensagem = `*Novo Diagnóstico - Protocolo Fênix*\n` +
+        // Función para enviar datos por WhatsApp (respaldo automático)
+        function enviarWhatsApp(dados) {
+            const plano = dados.plano_selecionado;
+            const mensagem = `*Novo Diagnóstico - Protocolo Fênix (Falha Sheets)*\n` +
                 `Nome: ${dados.nome || 'Não informado'}\n` +
                 `Email: ${dados.email || 'Não informado'}\n` +
                 `WhatsApp: ${dados.whatsapp || 'Não informado'}\n` +
@@ -1383,12 +1387,13 @@
             window.open(url, '_blank');
         }
 
-        // Função para iniciar o questionário (chamada pelos botões)
+        // Función para iniciar el cuestionario (llamada por todos los botones CTA)
         function iniciarQuestionario() {
             if (pacotesSection) pacotesSection.style.display = 'none';
             if (comunidadeSection) comunidadeSection.style.display = 'none';
             if (testimonialsGrid) testimonialsGrid.style.display = 'none';
             if (ctaPrincipal) ctaPrincipal.style.display = 'none';
+            // El botón flotante permanece visible, pero no importa
             diagnosticoSection.style.display = 'block';
             diagnosticoSection.scrollIntoView({ behavior: 'smooth' });
             indiceAtual = 0;
@@ -1396,8 +1401,9 @@
             mostrarPergunta(indiceAtual);
         }
 
-        btnIniciar.addEventListener('click', iniciarQuestionario);
-        btnIniciar2.addEventListener('click', iniciarQuestionario);
+        btnHero.addEventListener('click', iniciarQuestionario);
+        btnCentro.addEventListener('click', iniciarQuestionario);
+        btnCentroPulse.addEventListener('click', iniciarQuestionario);
         btnFlotante.addEventListener('click', iniciarQuestionario);
 
         // ===== LÓGICA DO QUESTIONÁRIO =====
@@ -1462,6 +1468,7 @@
 
             btnAnterior.style.visibility = index === 0 ? 'hidden' : 'visible';
 
+            // Eventos de opciones
             if (pergunta.tipo === 'opcoes') {
                 document.querySelectorAll('.opcao').forEach(el => {
                     el.addEventListener('click', function() {
@@ -1484,6 +1491,19 @@
                 if (input) {
                     input.addEventListener('input', function(e) {
                         respostas[pergunta.campo] = e.target.value;
+                    });
+                }
+            }
+
+            // Evento de tecla Enter en inputs y textareas para avanzar
+            if (pergunta.tipo !== 'opcoes' && pergunta.tipo !== 'escala') {
+                const input = document.getElementById(`input-${pergunta.campo}`);
+                if (input) {
+                    input.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            btnProximo.click();
+                        }
                     });
                 }
             }
@@ -1533,7 +1553,7 @@
             }
         });
 
-        // Função de depuração (pode chamar no console)
+        // Función de depuración
         window.probarEnvio = () => {
             enviarYRedirigir(planoSelecionado);
         };
