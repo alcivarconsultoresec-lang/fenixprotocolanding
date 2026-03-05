@@ -1282,6 +1282,24 @@
     <!-- Loader -->
     <div id="loader"><div class="spinner"></div><span>Preparando seu diagnóstico...</span></div>
 
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '834185569696914');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=834185569696914&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
     <script>
         // ===== VARIÁVEIS GLOBAIS =====
         let planoSelecionado = 2;
@@ -1362,7 +1380,17 @@
                 console.error('❌ Erro ao enviar para Google Sheets, enviando por WhatsApp...', error);
                 enviarWhatsApp(dadosCompletos);
             } finally {
-                window.location.href = links[nivel];
+                // Disparar evento de compra no Meta Pixel
+                let valor = 0;
+                if (nivel === 1) valor = 67;
+                else if (nivel === 2) valor = 97;
+                else if (nivel === 3) valor = 147;
+                fbq('track', 'Purchase', {value: valor, currency: 'BRL'});
+
+                // Pequeno delay para garantir o envio do pixel antes da redireção
+                setTimeout(() => {
+                    window.location.href = links[nivel];
+                }, 300);
             }
         }
 
@@ -1549,6 +1577,9 @@
                 indiceAtual++;
                 mostrarPergunta(indiceAtual);
             } else {
+                // Disparar evento de Lead no Meta Pixel
+                fbq('track', 'Lead');
+
                 diagnosticoSection.style.display = 'none';
                 procesandoScreen.style.display = 'flex';
                 setTimeout(() => {
