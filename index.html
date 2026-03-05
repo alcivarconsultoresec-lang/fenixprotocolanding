@@ -80,7 +80,6 @@
             z-index: 10;
         }
 
-        /* Componentes reutilizables */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -145,7 +144,6 @@
             border-radius: 3px;
         }
 
-        /* Botones */
         .btn-gold {
             display: inline-block;
             background: linear-gradient(135deg, #b8860b, #daa520);
@@ -245,7 +243,6 @@
             color: var(--cosmic-dark);
         }
 
-        /* Hero con botón arriba */
         .hero-section {
             position: relative;
             margin-bottom: 40px;
@@ -313,7 +310,6 @@
             margin-top: 20px;
         }
 
-        /* Authority strip */
         .authority-strip {
             display: flex;
             flex-wrap: wrap;
@@ -346,7 +342,6 @@
             color: #e0d0b5;
         }
 
-        /* Forensic section */
         .forensic-section {
             margin: 80px 0;
             display: grid;
@@ -403,7 +398,6 @@
             width: 30px;
         }
 
-        /* Disciplines */
         .disciplines-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -460,7 +454,6 @@
             color: #b5a5b0;
         }
 
-        /* Curse section */
         .curse-section {
             margin: 90px 0;
             display: grid;
@@ -495,7 +488,6 @@
             margin-bottom: 20px;
         }
 
-        /* Packages */
         .pacotes-section {
             margin: 80px 0;
             text-align: center;
@@ -617,7 +609,6 @@
             color: #0a0710;
         }
 
-        /* Comunidade */
         .comunidad-section {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -684,7 +675,6 @@
             margin-right: 8px;
         }
 
-        /* Testimonials */
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -742,7 +732,6 @@
             line-height: 1.7;
         }
 
-        /* Questionário inmersivo */
         .diagnostico-section {
             margin: 60px 0;
             background: rgba(0,0,0,0.3);
@@ -844,7 +833,6 @@
             justify-content: space-between;
         }
 
-        /* Procesando */
         .procesando-screen {
             position: fixed;
             top: 0;
@@ -894,7 +882,6 @@
             opacity: 0.8;
         }
 
-        /* Resultado */
         .tela-resultado {
             margin: 60px 0;
             display: none;
@@ -948,13 +935,11 @@
             color: var(--gold-bright);
         }
 
-        /* CTA centro */
         .cta-centro {
             text-align: center;
             margin: 50px 0;
         }
 
-        /* Footer */
         .footer {
             margin-top: 80px;
             padding: 40px 0 20px;
@@ -980,7 +965,6 @@
             text-shadow: 0 0 15px var(--gold-bright);
         }
 
-        /* Loader */
         #loader {
             position: fixed;
             top: 50%;
@@ -1335,6 +1319,16 @@
         const testimonialsGrid = document.querySelector('.testimonials-grid');
         const ctaCentro = document.querySelector('.cta-centro');
 
+        // ===== FUNÇÃO SEGURA PARA FACEBOOK PIXEL =====
+        function trackFacebookEvent(eventName, params = {}) {
+            if (typeof fbq === 'function') {
+                fbq('track', eventName, params);
+                console.log(`✅ Evento ${eventName} enviado para Facebook Pixel`);
+            } else {
+                console.warn('⚠️ Facebook Pixel não disponível');
+            }
+        }
+
         // Función para seleccionar plano (solo selección visual)
         function selecionarPlano(nivel) {
             planoSelecionado = nivel;
@@ -1360,6 +1354,13 @@
 
         // Función para enviar datos a Google Sheets y redirigir (con fallback WhatsApp automático)
         async function enviarYRedirigir(nivel) {
+            // Disparar evento de compra no Meta Pixel imediatamente
+            let valor = 0;
+            if (nivel === 1) valor = 67;
+            else if (nivel === 2) valor = 97;
+            else if (nivel === 3) valor = 147;
+            trackFacebookEvent('Purchase', { value: valor, currency: 'BRL' });
+
             loader.style.display = 'flex';
             const dadosCompletos = {
                 ...respostas,
@@ -1380,17 +1381,10 @@
                 console.error('❌ Erro ao enviar para Google Sheets, enviando por WhatsApp...', error);
                 enviarWhatsApp(dadosCompletos);
             } finally {
-                // Disparar evento de compra no Meta Pixel
-                let valor = 0;
-                if (nivel === 1) valor = 67;
-                else if (nivel === 2) valor = 97;
-                else if (nivel === 3) valor = 147;
-                fbq('track', 'Purchase', {value: valor, currency: 'BRL'});
-
-                // Pequeno delay para garantir o envio do pixel antes da redireção
+                // Dar tempo para o pixel enviar antes de redirecionar
                 setTimeout(() => {
                     window.location.href = links[nivel];
-                }, 300);
+                }, 500);
             }
         }
 
@@ -1578,7 +1572,7 @@
                 mostrarPergunta(indiceAtual);
             } else {
                 // Disparar evento de Lead no Meta Pixel
-                fbq('track', 'Lead');
+                trackFacebookEvent('Lead');
 
                 diagnosticoSection.style.display = 'none';
                 procesandoScreen.style.display = 'flex';
