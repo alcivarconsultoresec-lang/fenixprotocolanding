@@ -14,18 +14,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-        /* ===== VARIABLES DE LUJO ===== */
         :root {
             --cosmic-dark: #0a0710;
             --deep-purple: #1a1120;
             --royal-lavender: #bba5d1;
-            --sacred-gold: #e8d5b5;
-            --neon-lila: #b388ff;
-            --neon-glow: 0 0 15px #b388ff, 0 0 30px rgba(179, 136, 255, 0.5);
-            --mystic-glow: rgba(187, 165, 209, 0.3);
+            --gold-bright: #FFD700;
+            --gold-glow: 0 0 20px #FFD700, 0 0 40px rgba(255, 215, 0, 0.5);
             --shadow-heavy: 0 30px 60px -15px rgba(0,0,0,0.8);
             --shadow-soft: 0 20px 40px -12px rgba(0,0,0,0.5);
-            --gradient-cosmic: linear-gradient(145deg, #0e0b15, #1a1425);
             --glass-bg: rgba(10, 7, 16, 0.6);
             --glass-border: rgba(232, 213, 181, 0.15);
         }
@@ -84,7 +80,7 @@
             z-index: 10;
         }
 
-        /* ===== COMPONENTES REUTILIZABLES ===== */
+        /* Componentes reutilizables */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
@@ -96,7 +92,7 @@
         }
 
         .glass-card:hover {
-            border-color: var(--sacred-gold);
+            border-color: var(--gold-bright);
             transform: translateY(-5px);
         }
 
@@ -110,7 +106,7 @@
             font-size: 0.8rem;
             letter-spacing: 2px;
             text-transform: uppercase;
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
             font-weight: 600;
         }
 
@@ -123,7 +119,7 @@
 
         h1 {
             font-size: 3.5rem;
-            background: linear-gradient(135deg, #ffffff, var(--sacred-gold));
+            background: linear-gradient(135deg, #ffffff, var(--gold-bright));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -132,7 +128,7 @@
 
         h2 {
             font-size: 2.8rem;
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
             margin-bottom: 20px;
             position: relative;
             display: inline-block;
@@ -145,44 +141,98 @@
             left: 0;
             width: 80px;
             height: 3px;
-            background: linear-gradient(90deg, var(--sacred-gold), transparent);
+            background: linear-gradient(90deg, var(--gold-bright), transparent);
             border-radius: 3px;
         }
 
-        /* ===== BOTÓN NEON LILA ===== */
-        .btn-neon {
+        /* Botones */
+        .btn-gold {
             display: inline-block;
-            background: linear-gradient(135deg, #4a2f6e, #2a1f4a);
-            color: white;
+            background: linear-gradient(135deg, #b8860b, #daa520);
+            color: #0a0710;
             font-size: 1.2rem;
             font-weight: 700;
             padding: 18px 45px;
             border-radius: 80px;
-            border: 2px solid var(--neon-lila);
+            border: none;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            box-shadow: 0 0 15px var(--neon-lila), 0 0 30px rgba(179, 136, 255, 0.3);
+            box-shadow: 0 0 15px rgba(218, 165, 32, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
             letter-spacing: 1px;
             position: relative;
             overflow: hidden;
             z-index: 1;
         }
 
-        .btn-neon:hover {
+        .btn-gold:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 25px var(--neon-lila), 0 0 50px rgba(179, 136, 255, 0.6);
-            border-color: white;
+            box-shadow: 0 0 25px #FFD700, 0 0 50px rgba(255, 215, 0, 0.6);
         }
 
-        .btn-neon i {
+        .btn-gold i {
             margin-right: 10px;
+        }
+
+        .btn-pulse {
+            display: inline-block;
+            background: linear-gradient(135deg, #b8860b, #daa520);
+            color: #0a0710;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 20px 60px;
+            border-radius: 80px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 0 15px #FFD700;
+            animation: pulse 2s infinite;
+            transition: transform 0.3s;
+        }
+
+        .btn-pulse:hover {
+            transform: scale(1.05);
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(255, 215, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+
+        .btn-bubble {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #b8860b, #daa520);
+            color: #0a0710;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3), 0 0 20px #FFD700;
+            transition: transform 0.3s, box-shadow 0.3s;
+            z-index: 1000;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .btn-bubble:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 30px #FFD700;
+        }
+
+        .btn-bubble i {
+            margin: 0;
         }
 
         .btn-secundario {
             background: transparent;
-            border: 1px solid var(--sacred-gold);
-            color: var(--sacred-gold);
+            border: 2px solid var(--gold-bright);
+            color: var(--gold-bright);
             padding: 12px 30px;
             border-radius: 60px;
             cursor: pointer;
@@ -191,11 +241,11 @@
         }
 
         .btn-secundario:hover {
-            background: var(--sacred-gold);
+            background: var(--gold-bright);
             color: var(--cosmic-dark);
         }
 
-        /* ===== HERO SECTION ===== */
+        /* Hero con botón arriba */
         .hero-section {
             position: relative;
             margin-bottom: 40px;
@@ -247,19 +297,23 @@
         .hero-content .badge {
             margin-bottom: 20px;
             background: rgba(0,0,0,0.5);
-            border-color: var(--sacred-gold);
+            border-color: var(--gold-bright);
         }
 
         .hero-subhead {
             font-size: 1.3rem;
             color: #d9c9b0;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto 30px;
             font-weight: 300;
             text-shadow: 0 2px 10px black;
         }
 
-        /* ===== SELLOS DE AUTORIDAD ===== */
+        .hero-btn {
+            margin-top: 20px;
+        }
+
+        /* Authority strip */
         .authority-strip {
             display: flex;
             flex-wrap: wrap;
@@ -280,7 +334,7 @@
         }
 
         .authority-item i {
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
             font-size: 1.4rem;
         }
 
@@ -292,7 +346,7 @@
             color: #e0d0b5;
         }
 
-        /* ===== DIAGNÓSTICO FORENSE ===== */
+        /* Forensic section */
         .forensic-section {
             margin: 80px 0;
             display: grid;
@@ -344,12 +398,12 @@
         }
 
         .highlight-list li i {
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
             font-size: 1.3rem;
             width: 30px;
         }
 
-        /* ===== TARJETAS DE DISCIPLINAS ===== */
+        /* Disciplines */
         .disciplines-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -369,9 +423,9 @@
         }
 
         .discipline-card:hover {
-            border-color: var(--sacred-gold);
+            border-color: var(--gold-bright);
             transform: translateY(-8px);
-            box-shadow: 0 20px 30px -10px rgba(232, 213, 181, 0.2);
+            box-shadow: 0 20px 30px -10px rgba(255, 215, 0, 0.2);
         }
 
         .card-image-small {
@@ -380,13 +434,13 @@
             margin: 0 auto 18px;
             border-radius: 35px;
             overflow: hidden;
-            border: 2px solid var(--sacred-gold);
+            border: 2px solid var(--gold-bright);
             transition: 0.3s;
         }
 
         .discipline-card:hover .card-image-small {
             transform: scale(1.05);
-            box-shadow: 0 0 20px var(--sacred-gold);
+            box-shadow: 0 0 20px var(--gold-bright);
         }
 
         .card-image-small img {
@@ -406,7 +460,7 @@
             color: #b5a5b0;
         }
 
-        /* ===== SECCIÓN "QUEBRAR A MALDIÇÃO" ===== */
+        /* Curse section */
         .curse-section {
             margin: 90px 0;
             display: grid;
@@ -434,14 +488,14 @@
         }
 
         .curse-content h2 {
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
         }
 
         .curse-content .badge {
             margin-bottom: 20px;
         }
 
-        /* ===== SEÇÃO DE PACOTES (3 NÍVEIS) ===== */
+        /* Packages */
         .pacotes-section {
             margin: 80px 0;
             text-align: center;
@@ -466,18 +520,18 @@
         }
 
         .pacote-card:hover {
-            border-color: var(--sacred-gold);
+            border-color: var(--gold-bright);
             transform: translateY(-10px);
             box-shadow: var(--shadow-heavy);
         }
 
         .pacote-card.selecionado {
-            border: 3px solid var(--neon-lila);
-            box-shadow: 0 0 30px var(--neon-lila);
+            border: 3px solid var(--gold-bright);
+            box-shadow: 0 0 30px var(--gold-bright);
         }
 
         .pacote-card.destaque {
-            border: 2px solid var(--sacred-gold);
+            border: 2px solid var(--gold-bright);
             transform: scale(1.02);
         }
 
@@ -486,7 +540,7 @@
             top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--sacred-gold);
+            background: var(--gold-bright);
             color: #0a0710;
             padding: 8px 30px;
             border-radius: 60px;
@@ -497,7 +551,7 @@
 
         .pacote-icon {
             font-size: 3rem;
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
             margin-bottom: 20px;
         }
 
@@ -517,7 +571,7 @@
         .pacote-preco span {
             font-size: 2.5rem;
             font-weight: 800;
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
         }
 
         .pacote-lista {
@@ -535,7 +589,7 @@
         }
 
         .pacote-lista i {
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
             font-size: 1.2rem;
             width: 24px;
         }
@@ -544,8 +598,8 @@
             width: 100%;
             margin-top: 20px;
             background: transparent;
-            border: 2px solid var(--sacred-gold);
-            color: var(--sacred-gold);
+            border: 2px solid var(--gold-bright);
+            color: var(--gold-bright);
             font-weight: 700;
             padding: 15px;
             border-radius: 60px;
@@ -554,26 +608,26 @@
         }
 
         .btn-pacote:hover {
-            background: var(--sacred-gold);
+            background: var(--gold-bright);
             color: #0a0710;
         }
 
         .btn-pacote.destaque-btn {
-            background: var(--sacred-gold);
+            background: var(--gold-bright);
             color: #0a0710;
         }
 
-        /* ===== COMUNIDADE (aparece apenas se plano Master/Black for selecionado) ===== */
+        /* Comunidade */
         .comunidad-section {
             background: var(--glass-bg);
             backdrop-filter: blur(12px);
-            border: 2px solid var(--sacred-gold);
+            border: 2px solid var(--gold-bright);
             border-radius: 60px;
             padding: 50px 40px;
             margin: 80px 0;
             text-align: center;
             box-shadow: var(--shadow-heavy);
-            display: none; /* Oculto por padrão */
+            display: none;
         }
 
         .comunidad-section.visible {
@@ -595,9 +649,9 @@
 
         .comunidad-feature i {
             font-size: 3rem;
-            color: var(--neon-lila);
+            color: var(--gold-bright);
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px var(--neon-lila));
+            filter: drop-shadow(0 0 10px var(--gold-bright));
         }
 
         .comunidad-feature h4 {
@@ -626,11 +680,11 @@
         }
 
         .profesional-item i {
-            color: var(--neon-lila);
+            color: var(--gold-bright);
             margin-right: 8px;
         }
 
-        /* ===== TESTIMONIALES ===== */
+        /* Testimonials */
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -648,7 +702,7 @@
         }
 
         .testimonial-card:hover {
-            border-color: var(--sacred-gold);
+            border-color: var(--gold-bright);
         }
 
         .testimonial-header {
@@ -663,7 +717,7 @@
             height: 60px;
             border-radius: 30px;
             overflow: hidden;
-            border: 2px solid var(--sacred-gold);
+            border: 2px solid var(--gold-bright);
         }
 
         .testimonial-foto img {
@@ -679,7 +733,7 @@
 
         .testimonial-nome p {
             font-size: 0.8rem;
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
         }
 
         .testimonial-texto {
@@ -688,13 +742,13 @@
             line-height: 1.7;
         }
 
-        /* ===== QUESTIONÁRIO ===== */
+        /* Questionário inmersivo */
         .diagnostico-section {
             margin: 60px 0;
             background: rgba(0,0,0,0.3);
             border-radius: 60px;
             padding: 40px 20px;
-            display: none; /* Oculto por padrão */
+            display: none;
         }
 
         .progresso {
@@ -709,7 +763,7 @@
         .barra-progresso {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--royal-lavender), var(--sacred-gold));
+            background: linear-gradient(90deg, var(--royal-lavender), var(--gold-bright));
             border-radius: 20px;
             transition: width 0.4s;
         }
@@ -745,13 +799,13 @@
         }
 
         .opcao:hover {
-            background: rgba(232,213,181,0.1);
-            border-color: var(--sacred-gold);
+            background: rgba(255,215,0,0.1);
+            border-color: var(--gold-bright);
         }
 
         .opcao.selecionada {
-            border-color: var(--sacred-gold);
-            background: rgba(232,213,181,0.05);
+            border-color: var(--gold-bright);
+            background: rgba(255,215,0,0.05);
         }
 
         input, textarea {
@@ -766,7 +820,7 @@
         }
 
         input:focus, textarea:focus {
-            border-color: var(--sacred-gold);
+            border-color: var(--gold-bright);
             outline: none;
             background: rgba(255,255,255,0.08);
         }
@@ -776,13 +830,21 @@
             resize: vertical;
         }
 
+        .campo-descricao {
+            font-size: 0.9rem;
+            color: #b5a5b0;
+            margin-top: -5px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
         .navegacao {
             display: flex;
             gap: 15px;
             justify-content: space-between;
         }
 
-        /* ===== PANTALLA DE PROCESAMIENTO ===== */
+        /* Procesando */
         .procesando-screen {
             position: fixed;
             top: 0;
@@ -808,8 +870,8 @@
         .procesando-spinner {
             width: 80px;
             height: 80px;
-            border: 5px solid rgba(179,136,255,0.2);
-            border-top-color: var(--neon-lila);
+            border: 5px solid rgba(255,215,0,0.2);
+            border-top-color: var(--gold-bright);
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 30px;
@@ -817,7 +879,7 @@
 
         .procesando-texto {
             font-size: 1.5rem;
-            color: var(--neon-lila);
+            color: var(--gold-bright);
             margin-bottom: 15px;
         }
 
@@ -832,7 +894,7 @@
             opacity: 0.8;
         }
 
-        /* ===== TELA DE RESULTADO ===== */
+        /* Resultado */
         .tela-resultado {
             margin: 60px 0;
             display: none;
@@ -866,7 +928,7 @@
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background: conic-gradient(var(--sacred-gold) 0deg 331deg, rgba(255,255,255,0.1) 331deg 360deg);
+            background: conic-gradient(var(--gold-bright) 0deg 331deg, rgba(255,255,255,0.1) 331deg 360deg);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -883,16 +945,16 @@
             justify-content: center;
             font-size: 2.5rem;
             font-weight: 800;
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
         }
 
-        /* ===== CTA PRINCIPAL ===== */
-        .cta-principal {
+        /* CTA centro */
+        .cta-centro {
             text-align: center;
             margin: 50px 0;
         }
 
-        /* ===== FOOTER ===== */
+        /* Footer */
         .footer {
             margin-top: 80px;
             padding: 40px 0 20px;
@@ -908,17 +970,17 @@
         }
 
         .footer-social a {
-            color: var(--sacred-gold);
+            color: var(--gold-bright);
             font-size: 1.5rem;
             transition: 0.3s;
         }
 
         .footer-social a:hover {
             transform: translateY(-3px);
-            text-shadow: 0 0 15px var(--sacred-gold);
+            text-shadow: 0 0 15px var(--gold-bright);
         }
 
-        /* ===== LOADER (para envio final) ===== */
+        /* Loader */
         #loader {
             position: fixed;
             top: 50%;
@@ -926,29 +988,28 @@
             transform: translate(-50%,-50%);
             background: rgba(10,7,16,0.95);
             backdrop-filter: blur(10px);
-            color: var(--neon-lila);
+            color: var(--gold-bright);
             padding: 25px 45px;
             border-radius: 80px;
             z-index: 3000;
             display: none;
             align-items: center;
             gap: 20px;
-            border: 2px solid var(--neon-lila);
-            box-shadow: 0 0 40px var(--neon-lila);
+            border: 2px solid var(--gold-bright);
+            box-shadow: 0 0 40px var(--gold-bright);
         }
 
         .spinner {
             width: 30px;
             height: 30px;
-            border: 3px solid rgba(179,136,255,0.3);
-            border-top-color: var(--neon-lila);
+            border: 3px solid rgba(255,215,0,0.3);
+            border-top-color: var(--gold-bright);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
         }
 
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Responsive */
         @media (max-width: 900px) {
             h1 { font-size: 2.8rem; }
             .forensic-section, .curse-section {
@@ -963,17 +1024,17 @@
             .container { padding: 15px; }
             .authority-strip { gap: 10px; }
             .authority-item { padding: 8px 15px; }
-            .btn-neon { font-size: 1rem; padding: 15px 30px; }
+            .btn-gold, .btn-pulse { font-size: 1rem; padding: 15px 30px; }
+            .btn-bubble { width: 60px; height: 60px; font-size: 1.5rem; bottom: 20px; right: 20px; }
         }
     </style>
 </head>
 <body>
     <div class="container">
 
-        <!-- ===== HERO ===== -->
+        <!-- ===== HERO CON BOTÓN ARRIBA ===== -->
         <section class="hero-section">
             <div class="hero-image-container">
-                <!-- IMAGEM PRINCIPAL: substitua pelo caminho da sua imagem -->
                 <img src="assets/imagenes/hero.jpg" alt="Dossiê da Traição" class="hero-image" loading="eager">
                 <div class="hero-overlay"></div>
                 <div class="hero-content">
@@ -982,6 +1043,9 @@
                     </div>
                     <h1>DOSSIÊ DA TRAIÇÃO<br><span style="font-size:0.7em; display:block;">DIAGNÓSTICO FORENSE</span></h1>
                     <p class="hero-subhead">A única análise que cruza astrologia, numerologia, quiromancia, carta natal e psicologia profunda para revelar padrões ocultos da traição.</p>
+                    <div class="hero-btn">
+                        <button class="btn-gold" id="btnHero"><i class="fas fa-star"></i> INICIAR ANÁLISE</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1009,7 +1073,6 @@
                 </ul>
             </div>
             <div class="forensic-image-container">
-                <!-- IMAGEM DO DIAGNÓSTICO -->
                 <img src="assets/imagenes/dossie.jpg" alt="Dossiê Fênix - Destino Manipulado" class="forensic-image" loading="lazy">
             </div>
         </section>
@@ -1017,44 +1080,32 @@
         <!-- ===== TARJETAS DE DISCIPLINAS ===== -->
         <div class="disciplines-grid">
             <div class="discipline-card">
-                <div class="card-image-small">
-                    <img src="assets/imagenes/psicologia.jpg" alt="Psicologia">
-                </div>
+                <div class="card-image-small"><img src="assets/imagenes/psicologia.jpg" alt="Psicologia"></div>
                 <h3>Psicologia</h3>
                 <p>Feridas de infância, padrões relacionais e perfil DSM-5</p>
             </div>
             <div class="discipline-card">
-                <div class="card-image-small">
-                    <img src="assets/imagenes/astrologia.jpg" alt="Astrologia">
-                </div>
+                <div class="card-image-small"><img src="assets/imagenes/astrologia.jpg" alt="Astrologia"></div>
                 <h3>Astrologia</h3>
                 <p>Mapa natal, trânsitos, nodo lunar e sinastria</p>
             </div>
             <div class="discipline-card">
-                <div class="card-image-small">
-                    <img src="assets/imagenes/quiromancia.jpg" alt="Quiromancia">
-                </div>
+                <div class="card-image-small"><img src="assets/imagenes/quiromancia.jpg" alt="Quiromancia"></div>
                 <h3>Quiromancia</h3>
                 <p>Linhas da mão (análise por foto)</p>
             </div>
             <div class="discipline-card">
-                <div class="card-image-small">
-                    <img src="assets/imagenes/numerologia.jpg" alt="Numerologia">
-                </div>
+                <div class="card-image-small"><img src="assets/imagenes/numerologia.jpg" alt="Numerologia"></div>
                 <h3>Numerologia</h3>
                 <p>Números do nascimento e ciclos kármicos</p>
             </div>
             <div class="discipline-card">
-                <div class="card-image-small">
-                    <img src="assets/imagenes/carta-natal.jpg" alt="Carta Natal">
-                </div>
+                <div class="card-image-small"><img src="assets/imagenes/carta-natal.jpg" alt="Carta Natal"></div>
                 <h3>Carta Natal</h3>
                 <p>Mapa completo com casas e ascendente</p>
             </div>
             <div class="discipline-card">
-                <div class="card-image-small">
-                    <img src="assets/imagenes/compatibilidade.jpg" alt="Compatibilidade">
-                </div>
+                <div class="card-image-small"><img src="assets/imagenes/compatibilidade.jpg" alt="Compatibilidade"></div>
                 <h3>Compatibilidade</h3>
                 <p>Cruzamento dos mapas astrais</p>
             </div>
@@ -1074,14 +1125,13 @@
                 </ul>
             </div>
             <div class="curse-image-container">
-                <!-- IMAGEM "QUEBRAR A MALDIÇÃO" -->
                 <img src="assets/imagenes/quebrar-maldicao.jpg" alt="Quebrar a Maldição" class="curse-image" loading="lazy">
             </div>
         </section>
 
         <!-- ===== SEÇÃO DE PACOTES (3 NÍVEIS) ===== -->
         <section class="pacotes-section">
-            <h2 style="color:var(--sacred-gold);">Escolha o nível da sua análise</h2>
+            <h2 style="color:var(--gold-bright);">Escolha o nível da sua análise</h2>
             <p style="color:#b5a5b0; max-width:700px; margin:0 auto;">Quanto mais profunda a investigação, mais clara a decisão. Todos os níveis incluem 7 dias de garantia.</p>
 
             <div class="pacotes-grid">
@@ -1090,9 +1140,7 @@
                     <i class="fas fa-feather-alt pacote-icon"></i>
                     <h3 class="pacote-nome">Dossiê Fênix</h3>
                     <p style="color:#b5a5b0;">O autoconhecimento essencial</p>
-                    <div class="pacote-preco">
-                        <span>R$67</span>
-                    </div>
+                    <div class="pacote-preco"><span>R$67</span></div>
                     <ul class="pacote-lista">
                         <li><i class="fas fa-check-circle"></i> Análise Psicológica</li>
                         <li><i class="fas fa-check-circle"></i> Numerologia básica</li>
@@ -1100,18 +1148,15 @@
                         <li><i class="fas fa-check-circle"></i> Matriz de decisão</li>
                         <li><i class="fas fa-check-circle"></i> Áudio personalizado</li>
                     </ul>
-                    <button class="btn-pacote" onclick="event.stopPropagation(); selecionarPlano(1)">ESCOLHER</button>
+                    <button class="btn-pacote" onclick="event.stopPropagation(); selecionarPlanoEIniciar(1)">ESCOLHER</button>
                 </div>
-
                 <!-- NÍVEL 2: Master (Destaque) -->
                 <div class="pacote-card destaque" id="plan2" onclick="selecionarPlano(2)">
                     <div class="selo-destaque">MAIS VENDIDO</div>
                     <i class="fas fa-crown pacote-icon"></i>
                     <h3 class="pacote-nome">Dossiê Master</h3>
                     <p style="color:#b5a5b0;">Análise estratégica + comunidade</p>
-                    <div class="pacote-preco">
-                        <span>R$97</span>
-                    </div>
+                    <div class="pacote-preco"><span>R$97</span></div>
                     <ul class="pacote-lista">
                         <li><i class="fas fa-check-circle"></i> Tudo do nível anterior</li>
                         <li><i class="fas fa-check-circle"></i> Análise de Conversas (prints)</li>
@@ -1119,17 +1164,14 @@
                         <li><i class="fas fa-check-circle"></i> Plano de ação 30 dias</li>
                         <li><i class="fas fa-check-circle"></i> <strong>COMUNIDADE VIP</strong></li>
                     </ul>
-                    <button class="btn-pacote destaque-btn" onclick="event.stopPropagation(); selecionarPlano(2)">ESCOLHER MASTER</button>
+                    <button class="btn-pacote destaque-btn" onclick="event.stopPropagation(); selecionarPlanoEIniciar(2)">ESCOLHER MASTER</button>
                 </div>
-
                 <!-- NÍVEL 3: Black -->
                 <div class="pacote-card" id="plan3" onclick="selecionarPlano(3)">
                     <i class="fas fa-gem pacote-icon"></i>
                     <h3 class="pacote-nome">Dossiê Black</h3>
                     <p style="color:#b5a5b0;">A perícia forense completa</p>
-                    <div class="pacote-preco">
-                        <span>R$147</span>
-                    </div>
+                    <div class="pacote-preco"><span>R$147</span></div>
                     <ul class="pacote-lista">
                         <li><i class="fas fa-check-circle"></i> Tudo do nível anterior</li>
                         <li><i class="fas fa-check-circle"></i> Quiromancia Digital (foto)</li>
@@ -1138,146 +1180,89 @@
                         <li><i class="fas fa-check-circle"></i> Sessão de dúvidas (áudio)</li>
                         <li><i class="fas fa-check-circle"></i> Certificado exclusivo</li>
                     </ul>
-                    <button class="btn-pacote" onclick="event.stopPropagation(); selecionarPlano(3)">ESCOLHER BLACK</button>
+                    <button class="btn-pacote" onclick="event.stopPropagation(); selecionarPlanoEIniciar(3)">ESCOLHER BLACK</button>
                 </div>
             </div>
         </section>
 
-        <!-- ===== COMUNIDADE (aparece apenas se plano Master/Black for selecionado) ===== -->
+        <!-- ===== COMUNIDADE ===== -->
         <section class="comunidad-section" id="comunidadeSection">
-            <i class="fas fa-hand-holding-heart" style="font-size:4rem; color:var(--neon-lila); margin-bottom:20px; filter: drop-shadow(0 0 15px var(--neon-lila));"></i>
-            <h2 style="color:var(--sacred-gold); display:block; text-align:center;">ACOMPANHAMENTO VITALÍCIO</h2>
+            <i class="fas fa-hand-holding-heart" style="font-size:4rem; color:var(--gold-bright); margin-bottom:20px; filter: drop-shadow(0 0 15px var(--gold-bright));"></i>
+            <h2 style="color:var(--gold-bright); display:block; text-align:center;">ACOMPANHAMENTO VITALÍCIO</h2>
             <p style="max-width:700px; margin:0 auto; color:#cfc5d4; font-size:1.2rem;">Ao desbloquear seu dossiê Master ou Black, você é convidada para nossa comunidade secreta no WhatsApp, moderada por psicólogos e coaches certificados.</p>
-            
             <div class="comunidad-grid">
-                <div class="comunidad-feature">
-                    <i class="fas fa-user-md"></i>
-                    <h4>Moderação Profissional</h4>
-                    <p>Psicólogos, terapeutas e coaches da Rede Fênix acompanham as discussões diariamente.</p>
-                </div>
-                <div class="comunidad-feature">
-                    <i class="fas fa-heart"></i>
-                    <h4>Apoio 24/7</h4>
-                    <p>Grupo de acolhimento com mulheres que passam pela mesma situação.</p>
-                </div>
-                <div class="comunidad-feature">
-                    <i class="fas fa-calendar-check"></i>
-                    <h4>Conteúdos Exclusivos</h4>
-                    <p> Lives semanais com especialistas e exercícios práticos.</p>
-                </div>
+                <div class="comunidad-feature"><i class="fas fa-user-md"></i><h4>Moderação Profissional</h4><p>Psicólogos, terapeutas e coaches da Rede Fênix acompanham as discussões diariamente.</p></div>
+                <div class="comunidad-feature"><i class="fas fa-heart"></i><h4>Apoio 24/7</h4><p>Grupo de acolhimento com mulheres que passam pela mesma situação.</p></div>
+                <div class="comunidad-feature"><i class="fas fa-calendar-check"></i><h4>Conteúdos Exclusivos</h4><p>Lives semanais com especialistas e exercícios práticos.</p></div>
             </div>
-
             <div class="profesionales-strip">
                 <span class="profesional-item"><i class="fas fa-check-circle"></i> Psicólogas CRP</span>
                 <span class="profesional-item"><i class="fas fa-check-circle"></i> Coaches SBC</span>
                 <span class="profesional-item"><i class="fas fa-check-circle"></i> Terapeutas Holísticos</span>
                 <span class="profesional-item"><i class="fas fa-check-circle"></i> Astrólogos certificados</span>
             </div>
-
             <p style="font-size:1.5rem; margin:20px 0;"><strong>+ R$27</strong> acesso vitalício (incluído nos níveis Master e Black)</p>
         </section>
 
         <!-- ===== TESTIMONIALES ===== -->
         <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-foto">
-                        <img src="assets/imagenes/testimonial-ana.jpg" alt="Ana">
-                    </div>
-                    <div class="testimonial-nome">
-                        <h4>Ana C.</h4>
-                        <p>34 anos • 3 meses atrás</p>
-                    </div>
-                </div>
-                <p class="testimonial-texto">"O dossiê apontou exatamente o medo que eu tinha de repetir a história da minha mãe. A comunidade me deu forças pra sair. Hoje sou grata."</p>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-foto">
-                        <img src="assets/imagenes/testimonial-mariana.jpg" alt="Mariana">
-                    </div>
-                    <div class="testimonial-nome">
-                        <h4>Mariana R.</h4>
-                        <p>28 anos • 2 meses atrás</p>
-                    </div>
-                </div>
-                <p class="testimonial-texto">"A compatibilidade astral mostrou que meu ex e eu tínhamos um aspecto de Marte que gerava competição. Fez todo sentido. A comunidade me acolheu."</p>
-            </div>
-            <div class="testimonial-card">
-                <div class="testimonial-header">
-                    <div class="testimonial-foto">
-                        <img src="assets/imagenes/testimonial-livia.jpg" alt="Lívia">
-                    </div>
-                    <div class="testimonial-nome">
-                        <h4>Lívia M.</h4>
-                        <p>41 anos • 1 mês atrás</p>
-                    </div>
-                </div>
-                <p class="testimonial-texto">"Usei o plano de ação pra reconstruir com limites. Hoje estamos melhor que antes. A psicóloga do grupo foi essencial."</p>
-            </div>
+            <div class="testimonial-card"><div class="testimonial-header"><div class="testimonial-foto"><img src="assets/imagenes/testimonial-ana.jpg" alt="Ana"></div><div class="testimonial-nome"><h4>Ana C.</h4><p>34 anos • 3 meses atrás</p></div></div><p class="testimonial-texto">"O dossiê apontou exatamente o medo que eu tinha de repetir a história da minha mãe. A comunidade me deu forças pra sair. Hoje sou grata."</p></div>
+            <div class="testimonial-card"><div class="testimonial-header"><div class="testimonial-foto"><img src="assets/imagenes/testimonial-mariana.jpg" alt="Mariana"></div><div class="testimonial-nome"><h4>Mariana R.</h4><p>28 anos • 2 meses atrás</p></div></div><p class="testimonial-texto">"A compatibilidade astral mostrou que meu ex e eu tínhamos um aspecto de Marte que gerava competição. Fez todo sentido. A comunidade me acolheu."</p></div>
+            <div class="testimonial-card"><div class="testimonial-header"><div class="testimonial-foto"><img src="assets/imagenes/testimonial-livia.jpg" alt="Lívia"></div><div class="testimonial-nome"><h4>Lívia M.</h4><p>41 anos • 1 mês atrás</p></div></div><p class="testimonial-texto">"Usei o plano de ação pra reconstruir com limites. Hoje estamos melhor que antes. A psicóloga do grupo foi essencial."</p></div>
         </div>
 
-        <!-- ===== CTA PRINCIPAL ===== -->
-        <div class="cta-principal">
-            <button class="btn-neon" id="btnIniciarAnalise" style="font-size:1.5rem; padding:25px 70px;">
-                <i class="fas fa-search"></i> INICIAR ANÁLISE FORENSE
-            </button>
+        <!-- ===== CTA CENTRO (SEGUNDO BOTÃO) ===== -->
+        <div class="cta-centro">
+            <h3 style="color:var(--gold-bright); margin-bottom:30px;">Comece sua jornada agora</h3>
+            <button class="btn-pulse" id="btnCentro"><i class="fas fa-star"></i> INICIAR ANÁLISE</button>
             <p style="margin-top:15px; color:#b5a5b0;"><i class="fas fa-lock"></i> Dados sigilosos • Garantia de 7 dias • Acesso à comunidade (Master/Black)</p>
         </div>
 
-        <!-- ===== ÁREA DO DIAGNÓSTICO (questionário) ===== -->
+        <!-- ===== BOTÓN FLOTANTE BURBUJA (TERCER BOTÃO) ===== -->
+        <div class="btn-bubble" id="btnFlotante" title="Iniciar Análise">
+            <i class="fas fa-star"></i>
+        </div>
+
+        <!-- ===== ÁREA DO DIAGNÓSTICO (questionário imersivo) ===== -->
         <section class="diagnostico-section" id="diagnosticoSection">
             <div style="max-width:720px; margin:0 auto;">
-                <div class="progresso">
-                    <div class="barra-progresso" id="barraProgresso"></div>
-                    <div style="text-align:right; margin-top:5px; color:var(--sacred-gold);" id="passoTexto">Pergunta 1 de 14</div>
-                </div>
+                <div class="progresso"><div class="barra-progresso" id="barraProgresso"></div><div style="text-align:right; margin-top:5px; color:var(--gold-bright);" id="passoTexto">Pergunta 1 de 14</div></div>
                 <div class="pergunta-container" id="perguntaContainer"></div>
-                <div class="navegacao">
-                    <button class="btn-secundario" id="btnAnterior" style="visibility:hidden;">Anterior</button>
-                    <button class="btn-neon" id="btnProximo">Próxima</button>
-                </div>
+                <div class="navegacao"><button class="btn-secundario" id="btnAnterior" style="visibility:hidden;">Anterior</button><button class="btn-gold" id="btnProximo">Próxima</button></div>
             </div>
         </section>
 
-        <!-- ===== PANTALLA DE PROCESAMIENTO ===== -->
+        <!-- ===== PROCESAMIENTO ===== -->
         <div class="procesando-screen" id="procesandoScreen">
             <div class="procesando-content">
                 <div class="procesando-spinner"></div>
                 <div class="procesando-texto">PROCESSANDO SEU RELATO</div>
                 <div class="procesando-detalhes">
-                    <span id="processMsg1">✓ Mapeando posições planetárias do dia da ruptura...</span>
-                    <span id="processMsg2">✓ Analisando linhas da vida na quiromancia...</span>
-                    <span id="processMsg3">✓ Detectando padrões de manipulação no seu relato...</span>
-                    <span id="processMsg4">✓ Cruzando 47 variáveis astrológicas...</span>
+                    <span>✓ Mapeando posições planetárias do dia da ruptura...</span>
+                    <span>✓ Analisando linhas da vida na quiromancia...</span>
+                    <span>✓ Detectando padrões de manipulação no seu relato...</span>
+                    <span>✓ Cruzando 47 variáveis astrológicas...</span>
                 </div>
             </div>
         </div>
 
-        <!-- ===== TELA DE RESULTADO ===== -->
+        <!-- ===== RESULTADO ===== -->
         <section class="tela-resultado" id="telaResultado">
             <div class="resultado-container">
                 <h2>Seu diagnóstico preliminar, <span id="nomeCliente"></span></h2>
-                
-                <div class="percentual-circle">
-                    <div class="percentual-inner" id="percentualValue">92%</div>
-                </div>
-                <p style="font-size:1.5rem; margin:20px 0;">Perfil detectado: <strong style="color:var(--sacred-gold);" id="perfilDetectado">NARCISISTA</strong></p>
-
+                <div class="percentual-circle"><div class="percentual-inner" id="percentualValue">92%</div></div>
+                <p style="font-size:1.5rem; margin:20px 0;">Perfil detectado: <strong style="color:var(--gold-bright);" id="perfilDetectado">NARCISISTA</strong></p>
                 <div style="position:relative; background:rgba(255,255,255,0.03); border-radius:40px; padding:30px; margin:30px 0;">
-                    <div class="texto-difuminado">
-                        <p>... a traição pode ter sido um sintoma de problemas mais profundos na relação. O perfil do seu parceiro sugere padrões de comportamento que indicam [DADOS DIFUMINADOS]... Para ver a análise completa e o plano de ação, desbloqueie o dossiê completo.</p>
-                    </div>
+                    <div class="texto-difuminado"><p>... a traição pode ter sido um sintoma de problemas mais profundos na relação. O perfil do seu parceiro sugere padrões de comportamento que indicam [DADOS DIFUMINADOS]... Para ver a análise completa e o plano de ação, desbloqueie o dossiê completo.</p></div>
                     <div class="overlay-difuminado"></div>
                 </div>
-
-                <div style="background:rgba(232,213,181,0.1); border-radius:40px; padding:30px;">
+                <div style="background:rgba(255,215,0,0.1); border-radius:40px; padding:30px;">
                     <h3>Desbloqueie seu dossiê completo</h3>
                     <p>Escolha abaixo o nível ideal para você:</p>
                     <div style="display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin: 20px 0;">
-                        <button class="btn-pacote" style="width:auto;" onclick="comprar(1)">Fênix R$67</button>
-                        <button class="btn-pacote destaque-btn" style="width:auto;" onclick="comprar(2)">Master R$97</button>
-                        <button class="btn-pacote" style="width:auto;" onclick="comprar(3)">Black R$147</button>
+                        <button class="btn-pacote" style="width:auto;" onclick="enviarYRedirigir(1)">Fênix R$67</button>
+                        <button class="btn-pacote destaque-btn" style="width:auto;" onclick="enviarYRedirigir(2)">Master R$97</button>
+                        <button class="btn-pacote" style="width:auto;" onclick="enviarYRedirigir(3)">Black R$147</button>
                     </div>
                     <p style="margin-top:15px; color:#b5a5b0;"><i class="fas fa-lock"></i> Pagamento 100% seguro via Hotmart</p>
                 </div>
@@ -1287,50 +1272,32 @@
         <!-- ===== FOOTER ===== -->
         <footer class="footer">
             <div class="footer-social">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-                <a href="#"><i class="fab fa-telegram"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-whatsapp"></i></a><a href="#"><i class="fab fa-telegram"></i></a><a href="#"><i class="fab fa-tiktok"></i></a>
             </div>
             <p style="color:#b5a5b0;">© 2025 Protocolo Fênix — Todos os direitos reservados.</p>
             <p style="color:#8a7a8a; font-size:0.8rem;">CNPJ 12.345.678/0001-90</p>
         </footer>
     </div>
 
-    <!-- Loader (para envio final) -->
-    <div id="loader">
-        <div class="spinner"></div>
-        <span>Preparando seu diagnóstico...</span>
-    </div>
-
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '834185569696914');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=834185569696914&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
+    <!-- Loader -->
+    <div id="loader"><div class="spinner"></div><span>Preparando seu diagnóstico...</span></div>
 
     <script>
         // ===== VARIÁVEIS GLOBAIS =====
-        let planoSelecionado = 2; // Master como padrão (destaque)
+        let planoSelecionado = 2;
 
-        // Links de Hotmart (substitua pelos seus)
+        // Links de Hotmart fornecidos pelo usuário
         const links = {
-            1: 'https://pay.hotmart.com/C104421790V?off=oferta1', // Fênix
-            2: 'https://pay.hotmart.com/C104421790V?off=oferta2', // Master
-            3: 'https://pay.hotmart.com/C104421790V?off=oferta3'  // Black
+            1: 'https://pay.hotmart.com/C104421790V', // Fênix
+            2: 'https://pay.hotmart.com/A104699356E', // Master
+            3: 'https://pay.hotmart.com/H104701853T'  // Black
         };
+
+        // URL do Google Apps Script
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxP71d-mtdUxZRrIlXxEFZq3h_t_CqS1-zTFyqaBaYisH64HokInXGOIHQ5hga-VArW/exec';
+
+        // Número de WhatsApp do administrador (Ecuador)
+        const WHATSAPP_NUMBER = '593969894550';
 
         // Elementos
         const cards = {
@@ -1339,28 +1306,24 @@
             3: document.getElementById('plan3')
         };
         const comunidadeSection = document.getElementById('comunidadeSection');
-        const btnIniciar = document.getElementById('btnIniciarAnalise');
+        const btnHero = document.getElementById('btnHero');
+        const btnCentro = document.getElementById('btnCentro');
+        const btnFlotante = document.getElementById('btnFlotante');
         const diagnosticoSection = document.getElementById('diagnosticoSection');
         const telaResultado = document.getElementById('telaResultado');
         const procesandoScreen = document.getElementById('procesandoScreen');
         const loader = document.getElementById('loader');
         const pacotesSection = document.querySelector('.pacotes-section');
         const testimonialsGrid = document.querySelector('.testimonials-grid');
-        const ctaPrincipal = document.querySelector('.cta-principal');
+        const ctaCentro = document.querySelector('.cta-centro');
 
-        // ===== FUNÇÃO PARA SELECIONAR PLANO =====
+        // Función para seleccionar plano (solo selección visual)
         function selecionarPlano(nivel) {
             planoSelecionado = nivel;
-            
-            // Remover classe 'selecionado' de todos os cards
             for (let i = 1; i <= 3; i++) {
                 if (cards[i]) cards[i].classList.remove('selecionado');
             }
-            
-            // Adicionar classe 'selecionado' ao card atual
             if (cards[nivel]) cards[nivel].classList.add('selecionado');
-            
-            // Mostrar seção de comunidade apenas se for Master (2) ou Black (3)
             if (nivel === 2 || nivel === 3) {
                 comunidadeSection.classList.add('visible');
             } else {
@@ -1368,41 +1331,101 @@
             }
         }
 
-        // Inicializar com plano 2 selecionado
-        selecionarPlano(2);
-
-        // ===== FUNÇÃO PARA COMPRAR (usada nos botões do resultado) =====
-        function comprar(nivel) {
-            // Disparar evento de compra no Meta Pixel
-            let valor = 0;
-            if (nivel === 1) valor = 67;
-            else if (nivel === 2) valor = 97;
-            else if (nivel === 3) valor = 147;
-            
-            fbq('track', 'Purchase', {value: valor, currency: 'BRL'});
-
-            // Aguardar um momento para garantir o envio do pixel
-            setTimeout(() => {
-                window.location.href = links[nivel];
-            }, 300);
+        // Función para seleccionar plano y luego iniciar el cuestionario
+        function selecionarPlanoEIniciar(nivel) {
+            selecionarPlano(nivel);
+            iniciarQuestionario();
         }
 
+        // Inicializar con plano 2 seleccionado
+        selecionarPlano(2);
+
+        // Función para enviar datos a Google Sheets y redirigir (con fallback WhatsApp automático)
+        async function enviarYRedirigir(nivel) {
+            loader.style.display = 'flex';
+            const dadosCompletos = {
+                ...respostas,
+                plano_selecionado: nivel === 1 ? 'Fênix' : (nivel === 2 ? 'Master' : 'Black')
+            };
+
+            console.log('📤 Dados a serem enviados:', dadosCompletos);
+
+            try {
+                await fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(dadosCompletos)
+                });
+                console.log('✅ Requisição enviada (no-cors)');
+            } catch (error) {
+                console.error('❌ Erro ao enviar para Google Sheets, enviando por WhatsApp...', error);
+                enviarWhatsApp(dadosCompletos);
+            } finally {
+                window.location.href = links[nivel];
+            }
+        }
+
+        // Función para enviar datos por WhatsApp (respaldo automático)
+        function enviarWhatsApp(dados) {
+            const plano = dados.plano_selecionado;
+            const mensagem = `*Novo Diagnóstico - Protocolo Fênix (Falha Sheets)*\n` +
+                `Nome: ${dados.nome || 'Não informado'}\n` +
+                `Email: ${dados.email || 'Não informado'}\n` +
+                `WhatsApp: ${dados.whatsapp || 'Não informado'}\n` +
+                `Data Nasc: ${dados.data_nasc || 'Não informado'}\n` +
+                `Cidade: ${dados.cidade || 'Não informado'}\n` +
+                `Tempo descoberta: ${dados.tempo_descobriu || 'Não informado'}\n` +
+                `Como descobriu: ${dados.como_descobriu || 'Não informado'}\n` +
+                `Tipo traição: ${dados.tipo_traicao || 'Não informado'}\n` +
+                `Com quem: ${dados.com_quem || 'Não informado'}\n` +
+                `Arrependimento: ${dados.arrependimento || 'Não informado'}\n` +
+                `Confiança: ${dados.confianca || 'Não informado'}\n` +
+                `Desejo: ${dados.desejo || 'Não informado'}\n` +
+                `Plano selecionado: ${plano}`;
+
+            const url = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(mensagem)}`;
+            window.open(url, '_blank');
+        }
+
+        // Función para iniciar el cuestionario (llamada por todos los botones CTA y por los botones de plan)
+        function iniciarQuestionario() {
+            if (pacotesSection) pacotesSection.style.display = 'none';
+            if (comunidadeSection) comunidadeSection.style.display = 'none';
+            if (testimonialsGrid) testimonialsGrid.style.display = 'none';
+            if (ctaCentro) ctaCentro.style.display = 'none';
+            diagnosticoSection.style.display = 'block';
+            diagnosticoSection.scrollIntoView({ behavior: 'smooth' });
+            indiceAtual = 0;
+            respostas = {};
+            mostrarPergunta(indiceAtual);
+        }
+
+        btnHero.addEventListener('click', iniciarQuestionario);
+        btnCentro.addEventListener('click', iniciarQuestionario);
+        btnFlotante.addEventListener('click', iniciarQuestionario);
+
         // ===== LÓGICA DO QUESTIONÁRIO =====
+        // Base de perguntas com descrições e lógica condicional
         const perguntas = [
-            { tipo: 'texto', pergunta: '1. Seu nome completo', campo: 'nome' },
-            { tipo: 'email', pergunta: '2. Seu e-mail', campo: 'email' },
-            { tipo: 'tel', pergunta: '3. Seu WhatsApp com DDD', campo: 'whatsapp' },
-            { tipo: 'data', pergunta: '4. Sua data de nascimento (dd/mm/aaaa)', campo: 'data_nasc' },
-            { tipo: 'texto', pergunta: '5. Hora aproximada de nascimento (se souber)', campo: 'hora_nasc', opcional: true },
-            { tipo: 'texto', pergunta: '6. Cidade e estado onde nasceu', campo: 'cidade' },
-            { tipo: 'data', pergunta: '7. Data de nascimento do parceiro(a) (se souber)', campo: 'data_ex', opcional: true },
-            { tipo: 'opcoes', pergunta: '8. Há quanto tempo descobriu a traição?', campo: 'tempo_descobriu', opcoes: ['Dias', 'Semanas', 'Meses'] },
-            { tipo: 'opcoes', pergunta: '9. Como descobriu?', campo: 'como_descobriu', opcoes: ['Ele(a) confessou', 'Você descobriu', 'Outra pessoa contou'] },
-            { tipo: 'opcoes', pergunta: '10. A traição foi:', campo: 'tipo_traicao', opcoes: ['Uma noite', 'Um caso prolongado', 'Relação paralela', 'Não sei'] },
-            { tipo: 'opcoes', pergunta: '11. Com quem foi?', campo: 'com_quem', opcoes: ['Amiga', 'Colega de trabalho', 'Desconhecida', 'Ex', 'Outro'] },
-            { tipo: 'opcoes', pergunta: '12. Ele(a) demonstra arrependimento?', campo: 'arrependimento', opcoes: ['Sim', 'Não', 'Talvez'] },
-            { tipo: 'escala', pergunta: '13. Em uma escala de 1 a 10, o quanto você ainda confia nele(a)?', campo: 'confianca', min: 1, max: 10 },
-            { tipo: 'texto_longo', pergunta: '14. Descreva em poucas palavras o que você mais quer agora (seu desabafo):', campo: 'desejo' }
+            { tipo: 'texto', pergunta: '1. Seu nome completo', campo: 'nome', descricao: 'Como você gostaria de ser chamada?' },
+            { tipo: 'email', pergunta: '2. Seu e-mail', campo: 'email', descricao: 'Usaremos para enviar seu dossiê' },
+            { tipo: 'tel', pergunta: '3. Seu WhatsApp com DDD', campo: 'whatsapp', descricao: 'Para contato rápido, se necessário' },
+            { tipo: 'data', pergunta: '4. Sua data de nascimento', campo: 'data_nasc', descricao: 'Essencial para o mapa astral' },
+            { tipo: 'texto', pergunta: '5. Hora aproximada de nascimento', campo: 'hora_nasc', opcional: true, descricao: 'Opcional, mas aumenta a precisão do mapa' },
+            { tipo: 'texto', pergunta: '6. Cidade e estado onde nasceu', campo: 'cidade', descricao: 'Ex: São Paulo, SP' },
+            { tipo: 'data', pergunta: '7. Data de nascimento do parceiro(a)', campo: 'data_ex', opcional: true, descricao: 'Se não souber, deixe em branco' },
+            { tipo: 'opcoes', pergunta: '8. Há quanto tempo descobriu a traição?', campo: 'tempo_descobriu', opcoes: ['Dias', 'Semanas', 'Meses'], descricao: 'Isso ajuda a entender a urgência' },
+            { tipo: 'opcoes', pergunta: '9. Como descobriu?', campo: 'como_descobriu', opcoes: ['Ele(a) confessou', 'Você descobriu', 'Outra pessoa contou'], descricao: 'A forma como descobriu influencia o impacto' },
+            // Pregunta condicional: se escolher "Outra pessoa contou", aparece campo para especificar
+            { tipo: 'texto', pergunta: '9.1. Quem foi a pessoa que contou?', campo: 'quem_contou', opcional: false, condicao: { campo: 'como_descobriu', valor: 'Outra pessoa contou' }, descricao: 'Isso pode revelar dinâmicas ocultas' },
+            { tipo: 'opcoes', pergunta: '10. A traição foi:', campo: 'tipo_traicao', opcoes: ['Uma noite', 'Um caso prolongado', 'Relação paralela', 'Não sei'], descricao: 'A duração muda a análise' },
+            { tipo: 'opcoes', pergunta: '11. Com quem foi?', campo: 'com_quem', opcoes: ['Amiga', 'Colega de trabalho', 'Desconhecida', 'Ex', 'Outro'], descricao: 'O contexto da pessoa envolvida é relevante' },
+            // Pregunta condicional: se escolher "Outro", aparece campo para especificar
+            { tipo: 'texto', pergunta: '11.1. Especifique com quem foi:', campo: 'com_quem_outro', opcional: false, condicao: { campo: 'com_quem', valor: 'Outro' }, descricao: 'Conte-nos mais sobre essa pessoa' },
+            { tipo: 'opcoes', pergunta: '12. Ele(a) demonstra arrependimento?', campo: 'arrependimento', opcoes: ['Sim', 'Não', 'Talvez'], descricao: 'O arrependimento é um fator chave' },
+            { tipo: 'escala', pergunta: '13. Em uma escala de 1 a 10, o quanto você ainda confia nele(a)?', campo: 'confianca', min: 1, max: 10, descricao: '1 = nenhuma confiança, 10 = confiança total' },
+            { tipo: 'texto_longo', pergunta: '14. Descreva em poucas palavras o que você mais quer agora (seu desabafo):', campo: 'desejo', descricao: 'Fique à vontade para se expressar' }
         ];
 
         let indiceAtual = 0;
@@ -1418,11 +1441,25 @@
         const percentualValue = document.getElementById('percentualValue');
         const perfilDetectado = document.getElementById('perfilDetectado');
 
+        // Función para filtrar perguntas según condiciones
+        function getPerguntasVisiveis() {
+            return perguntas.filter(p => {
+                if (p.condicao) {
+                    return respostas[p.condicao.campo] === p.condicao.valor;
+                }
+                return true;
+            });
+        }
+
         function mostrarPergunta(index) {
-            const pergunta = perguntas[index];
+            const perguntasVisiveis = getPerguntasVisiveis();
+            const pergunta = perguntasVisiveis[index];
             if (!pergunta) return;
 
             let html = `<div class="pergunta">${pergunta.pergunta}</div>`;
+            if (pergunta.descricao) {
+                html += `<div class="campo-descricao">${pergunta.descricao}</div>`;
+            }
 
             if (pergunta.tipo === 'opcoes') {
                 html += '<div class="opcoes">';
@@ -1443,9 +1480,10 @@
 
             perguntaContainer.innerHTML = html;
 
-            const progresso = ((index + 1) / totalPerguntas) * 100;
+            const perguntasVisiveisCount = perguntasVisiveis.length;
+            const progresso = ((index + 1) / perguntasVisiveisCount) * 100;
             barraProgresso.style.width = progresso + '%';
-            passoTexto.textContent = `Pergunta ${index + 1} de ${totalPerguntas}`;
+            passoTexto.textContent = `Pergunta ${index + 1} de ${perguntasVisiveisCount}`;
 
             btnAnterior.style.visibility = index === 0 ? 'hidden' : 'visible';
 
@@ -1474,10 +1512,24 @@
                     });
                 }
             }
+
+            // Evento Enter en inputs y textareas
+            if (pergunta.tipo !== 'opcoes' && pergunta.tipo !== 'escala') {
+                const input = document.getElementById(`input-${pergunta.campo}`);
+                if (input) {
+                    input.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            btnProximo.click();
+                        }
+                    });
+                }
+            }
         }
 
         btnProximo.addEventListener('click', function() {
-            const perguntaAtual = perguntas[indiceAtual];
+            const perguntasVisiveis = getPerguntasVisiveis();
+            const perguntaAtual = perguntasVisiveis[indiceAtual];
 
             if (perguntaAtual.tipo === 'opcoes') {
                 if (!respostas[perguntaAtual.campo]) {
@@ -1493,32 +1545,21 @@
                 if (input) respostas[perguntaAtual.campo] = input.value;
             }
 
-            if (indiceAtual < totalPerguntas - 1) {
+            if (indiceAtual < perguntasVisiveis.length - 1) {
                 indiceAtual++;
                 mostrarPergunta(indiceAtual);
             } else {
-                // Disparar evento de Lead no Meta Pixel
-                fbq('track', 'Lead');
-
-                // Final do questionário: mostrar tela de processamento
                 diagnosticoSection.style.display = 'none';
                 procesandoScreen.style.display = 'flex';
-                
-                // Simular processamento (3 segundos)
                 setTimeout(() => {
                     procesandoScreen.style.display = 'none';
                     telaResultado.style.display = 'block';
                     nomeClienteSpan.textContent = respostas.nome || 'Cliente';
-                    
-                    // Gerar percentual aleatório e perfil
                     const percentual = Math.floor(Math.random() * (98 - 85 + 1) + 85);
                     percentualValue.textContent = percentual + '%';
-                    
                     const perfis = ['NARCISISTA', 'MANIPULADOR', 'GASLIGHTER', 'EVASIVO', 'CONTROLADOR'];
                     const perfil = perfis[Math.floor(Math.random() * perfis.length)];
                     perfilDetectado.textContent = perfil;
-                    
-                    // Rolar até o resultado
                     telaResultado.scrollIntoView({ behavior: 'smooth' });
                 }, 3000);
             }
@@ -1531,23 +1572,10 @@
             }
         });
 
-        // Ao clicar em "INICIAR ANÁLISE FORENSE"
-        btnIniciar.addEventListener('click', function() {
-            // Esconder seções que não são mais necessárias
-            if (pacotesSection) pacotesSection.style.display = 'none';
-            if (comunidadeSection) comunidadeSection.style.display = 'none';
-            if (testimonialsGrid) testimonialsGrid.style.display = 'none';
-            if (ctaPrincipal) ctaPrincipal.style.display = 'none';
-            
-            // Mostrar o questionário
-            diagnosticoSection.style.display = 'block';
-            diagnosticoSection.scrollIntoView({ behavior: 'smooth' });
-            
-            // Iniciar na primeira pergunta
-            indiceAtual = 0;
-            respostas = {}; // Limpar respostas anteriores (opcional)
-            mostrarPergunta(indiceAtual);
-        });
+        // Función de depuración
+        window.probarEnvio = () => {
+            enviarYRedirigir(planoSelecionado);
+        };
     </script>
 </body>
 </html>
